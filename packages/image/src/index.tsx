@@ -1,6 +1,6 @@
 import React, { ComponentType, ReactElement } from 'react';
 import { EditorPlugin } from '@draft-js-plugins/editor';
-import addImage from './modifiers/addImage';
+import addImage, { IMAGE_ENTITY_TYPE } from './modifiers/addImage';
 import ImageComponent, { ImageProps } from './Image';
 import { control, SelectImageControl } from './SelectImageControl';
 import { defaultTheme } from './theme';
@@ -35,7 +35,7 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
         const entity = block.getEntityAt(0);
         if (!entity) return null;
         const type = contentState.getEntity(entity).getType();
-        if (type === 'IMAGE' || type === 'image') {
+        if (type === IMAGE_ENTITY_TYPE) {
           return {
             component: ThemedImage,
             editable: false,
@@ -48,6 +48,9 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
     },
     addImage,
     control,
+    entityType: {
+      type: IMAGE_ENTITY_TYPE,
+    },
   };
 };
 

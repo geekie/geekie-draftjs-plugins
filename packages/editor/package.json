@@ -1,13 +1,12 @@
 {
-  "name": "@draft-js-plugins/image",
+  "name": "@draft-js-plugins/editor",
   "version": "4.1.3",
-  "sideEffects": [
-    "*.css"
-  ],
-  "description": "Image Plugin for DraftJS",
+  "sideEffects": false,
+  "description": "Editor for DraftJS Plugins",
   "author": {
-    "name": "Benjamin Kniffler",
-    "email": "benjamin@kniffler.com"
+    "name": "Nik Graf",
+    "email": "nik@nikgraf.com",
+    "url": "http://www.nikgraf.com"
   },
   "repository": {
     "type": "git",
@@ -15,7 +14,7 @@
   },
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
-  "types": "lib/index.d.ts",
+  "types": "./lib/index.d.ts",
   "files": [
     "lib"
   ],
@@ -31,21 +30,23 @@
   ],
   "scripts": {
     "clean": "yarn rimraf lib",
-    "build": "yarn build:js && yarn build:dts && yarn build:css",
+    "build": "yarn build:js && yarn build:dts",
     "build:js": "yarn rollup --config ../../rollup.config.js",
-    "build:dts": "tsc -d --emitDeclarationOnly --declarationDir lib",
-    "build:css": "node ../../scripts/build-css.js $(pwd)",
+    "build:dts": "tsc -d",
     "test": "jest"
   },
   "license": "MIT",
   "dependencies": {
-    "clsx": "^1.0.4",
-    "react-use": "^17.4.0"
+    "immutable": "~3.7.4",
+    "prop-types": "^15.8.1"
   },
   "peerDependencies": {
-    "draft-js": "^0.10.1 || ^0.11.0",
+    "draft-js": "^0.11.0",
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "devDependencies": {
+    "@types/draft-js": "^0.11.9"
   },
   "publishConfig": {
     "access": "public"

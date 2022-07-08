@@ -1,7 +1,7 @@
 import React, { ImgHTMLAttributes, ReactElement } from 'react';
 import { ContentBlock, ContentState } from 'draft-js';
 import clsx from 'clsx';
-import { ImagePluginTheme } from '.';
+import { ImagePluginTheme } from './theme';
 
 export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   block: ContentBlock;
@@ -41,6 +41,7 @@ export default React.forwardRef<HTMLImageElement, ImageProps>(
       contentState,
       ...elementProps
     } = otherProps;
+
     const combinedClassName = clsx(theme.image, className);
     const { src } = contentState.getEntity(block.getEntityAt(0)).getData();
     return (

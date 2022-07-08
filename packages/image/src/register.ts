@@ -1,7 +1,10 @@
-const defaultUploadImage: UploadImageTask = () =>
-  Promise.reject(
-    new Error('should register the uploadImageTask before uploading image')
-  );
+//const defaultUploadImage: UploadImageTask = () =>
+//Promise.reject(
+//new Error('should register the uploadImageTask before uploading image')
+//);
+
+const defaultUploadImage: UploadImageTask = async () =>
+  Promise.resolve('https://picsum.photos/1000/700');
 
 type UploadImageTask = (file: File) => Promise<string>;
 
