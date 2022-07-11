@@ -38,7 +38,19 @@ const SimpleImageEditor = (): ReactElement => (
 export default SimpleImageEditor;
 ```
 
-## How to pubish
+## Setup
+
+```bash
+yarn
+```
+
+## Running in storybook
+
+```bash
+yarn storybook
+```
+
+## Publishing
 
 Edit the packages/image/package.json by yourself.
 
