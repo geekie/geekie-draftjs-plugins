@@ -1,6 +1,7 @@
 import { css } from 'linaria';
 
 export interface ImagePluginTheme {
+  image?: string;
   selectImageControlContainer?: string;
   selectImageControlPanel?: string;
   selectImageControlPanelTitle?: string;
@@ -106,7 +107,7 @@ export const defaultTheme: ImagePluginTheme = {
   `,
   selectImageButtonDisabled: css`
     background: #ebe9e9;
-    color: #A9A8A8;
+    color: #a9a8a8;
     cursor: not-allowed;
   `,
 };

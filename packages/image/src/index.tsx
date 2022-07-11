@@ -13,6 +13,9 @@ export interface ImagePluginConfig {
 export type ImageEditorPlugin = EditorPlugin & {
   addImage: typeof addImage;
   control: SelectImageControl;
+  entityType: {
+    type: string;
+  };
 };
 
 export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
