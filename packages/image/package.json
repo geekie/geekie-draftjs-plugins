@@ -1,17 +1,14 @@
 {
-  "name": "@xumm_12/geekie-image",
+  "name": "@geekie/geekie-image",
   "version": "0.0.1",
   "sideEffects": [
     "*.css"
   ],
   "description": "Geekie Image Plugin for DraftJS",
-  "author": {
-    "name": "xumm_12",
-    "email": "takeitallwithyou0102@gmail.com"
-  },
+  "author": "xumm_12 <takeitallwithyou0102@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/geekie/geekie-image.git"
+    "url": "git+https://github.com/geekie/geekie-image.git"
   },
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
@@ -49,5 +46,12 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/geekie/geekie-image/issues"
+  },
+  "homepage": "https://github.com/geekie/geekie-image#readme",
+  "directories": {
+    "lib": "lib"
   }
 }
