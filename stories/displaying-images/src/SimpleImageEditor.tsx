@@ -1,10 +1,3 @@
-# geekie-image
-
-DrafJS Plugin that adds image support.
-
-## Basic usage
-
-```tsx
 import React, { ReactElement } from 'react';
 import { DraftailEditor as Editor, INLINE_STYLE } from 'draftail';
 import createImagePlugin, {
@@ -36,13 +29,3 @@ const SimpleImageEditor = (): ReactElement => (
 );
 
 export default SimpleImageEditor;
-```
-
-## How to pubish
-
-Edit the packages/image/package.json by yourself.
-
-```bash
-npm run build
-cd packages/image && npm publish
-```

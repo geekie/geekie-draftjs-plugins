@@ -1,0 +1,117 @@
+{
+  "name": "draft-js-plugins",
+  "description": "A Plugin Architecture on top of Draft.JS",
+  "version": "0.0.0",
+  "author": {
+    "name": "Nik Graf",
+    "email": "nik@nikgraf.com",
+    "url": "http://www.nikgraf.com"
+  },
+  "dependencies": {
+    "draft-js": "^0.11.0",
+    "eslint-plugin-import": "^2.26.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.18.6",
+    "@babel/plugin-proposal-class-properties": "7.18.6",
+    "@babel/preset-env": "7.18.6",
+    "@babel/preset-react": "7.18.6",
+    "@babel/preset-typescript": "7.18.6",
+    "draftail": "^1.4.1",
+    "@changesets/cli": "^2.23.0",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@storybook/builder-webpack5": "^6.5.9",
+    "@storybook/manager-webpack5": "^6.5.9",
+    "@storybook/react": "^6.5.9",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.2.1",
+    "@types/jest": "^27.5.0",
+    "@types/react-dom": "^18.0.3",
+    "@typescript-eslint/eslint-plugin": "4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^28.1.1",
+    "babel-loader": "^8.2.5",
+    "babel-plugin-transform-rename-import": "^2.3.0",
+    "css-loader": "6.7.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "2.7.1",
+    "eslint-plugin-jsx-a11y": "4.0.0",
+    "eslint-plugin-no-only-tests": "^2.6.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.1",
+    "jest": "^27.5.1",
+    "linaria": "2.1",
+    "lint-staged": "^12.4.3",
+    "matched": "^5.0.1",
+    "multer": "^1.4.4",
+    "prettier": "^2.7.1",
+    "prismjs": "^1.28.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.75.7",
+    "style-loader": "3.3.1",
+    "ts-jest": "27.1.4",
+    "ts-node": "10.8.1",
+    "typescript": "4.7.4",
+    "webpack": "^5.73.0",
+    "react-use": "^17.4.0"
+  },
+  "keywords": [
+    "components",
+    "draft",
+    "editor",
+    "react",
+    "react-component",
+    "ux",
+    "widget",
+    "wysiwyg"
+  ],
+  "license": "MIT",
+  "lint-staged": {
+    "*.(js|ts|tsx)": [
+      "prettier --write",
+      "git add",
+      "eslint"
+    ],
+    "*.(ts|tsx)": [
+      "bash -c tsc --noEmit"
+    ]
+  },
+  "main": "lib/index.js",
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/draft-js-plugins/draft-js-plugins.git"
+  },
+  "scripts": {
+    "alex": "alex README.md",
+    "build-storybook": "build-storybook",
+    "lint": "yarn lint:eslint && yarn tsc",
+    "lint:eslint": "eslint --ext .js,.ts,.tsx ./",
+    "lint:eslint:fix": "eslint --fix ./",
+    "storybook": "start-storybook -p 6006",
+    "test": "yarn build:dts && yarn test:jest",
+    "test:jest": "jest",
+    "test:watch": "yarn test -- --watch",
+    "build": "yarn build:dts && yarn workspaces run build",
+    "build:dts": "yarn workspace @draft-js-plugins/editor run build",
+    "prerelease": "yarn build",
+    "release": "changeset publish",
+    "postinstall": "husky install"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
