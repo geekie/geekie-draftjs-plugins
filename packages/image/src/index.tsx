@@ -5,6 +5,8 @@ import ImageComponent, { ImageProps } from './Image';
 import { control, SelectImageControl } from './SelectImageControl';
 import { defaultTheme } from './theme';
 
+export { registerUploadImageTask } from './register';
+
 export interface ImagePluginConfig {
   decorator?(component: ComponentType<ImageProps>): ComponentType<ImageProps>;
   imageComponent?: ComponentType<ImageProps>;
