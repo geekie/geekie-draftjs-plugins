@@ -9,7 +9,7 @@ import React, { ReactElement } from 'react';
 import { DraftailEditor as Editor, INLINE_STYLE } from 'draftail';
 import createImagePlugin, {
   registerUploadImageTask,
-} from '@draft-js-plugins/image';
+} from '@geekie/geekie-image';
 import 'draftail/dist/draftail.css';
 
 const imagePlugin = createImagePlugin();
