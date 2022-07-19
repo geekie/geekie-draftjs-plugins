@@ -2,6 +2,7 @@ import { css } from 'linaria';
 
 export interface ImagePluginTheme {
   image?: string;
+  imageContainer?: string;
   selectImageControlContainer?: string;
   selectImageControlPanel?: string;
   selectImageControlPanelTitle?: string;
@@ -14,9 +15,16 @@ export interface ImagePluginTheme {
   selectImageButtonGroup?: string;
   selectImageButton?: string;
   selectImageButtonDisabled?: string;
+  errorMessage?: string;
+  resizeHandle?: string;
 }
 
 export const defaultTheme: ImagePluginTheme = {
+  image: css`
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+  `,
   // control styles
   selectImageControlContainer: css`
     position: relative;
@@ -109,5 +117,19 @@ export const defaultTheme: ImagePluginTheme = {
     background: #ebe9e9;
     color: #a9a8a8;
     cursor: not-allowed;
+  `,
+  errorMessage: css`
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    line-height: 14px;
+    color: #d93734;
+    margin-top: 10px;
+  `,
+  resizeHandle: css`
+    width: 8px;
+    height: 8px;
+    position: relative;
+    background: #00a3ff;
   `,
 };

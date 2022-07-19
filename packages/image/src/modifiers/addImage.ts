@@ -1,6 +1,6 @@
 import { EditorState, AtomicBlockUtils } from 'draft-js';
 
-export const IMAGE_ENTITY_TYPE = "GEEKIE_IMAGE";
+export const IMAGE_ENTITY_TYPE = 'GEEKIE_IMAGE';
 
 export default (
   editorState: EditorState,

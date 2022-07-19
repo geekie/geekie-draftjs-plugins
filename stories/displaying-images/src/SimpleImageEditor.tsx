@@ -9,9 +9,7 @@ const imagePlugin = createImagePlugin();
 const plugins = [imagePlugin];
 
 // Register how to upload the selected image
-registerUploadImageTask(() =>
-  Promise.resolve('https://picsum.photos/1000/700')
-);
+registerUploadImageTask(() => Promise.resolve('https://picsum.photos/300/300'));
 
 const SimpleImageEditor = (): ReactElement => (
   <div>
