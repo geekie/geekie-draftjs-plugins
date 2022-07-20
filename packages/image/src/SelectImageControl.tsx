@@ -2,7 +2,7 @@ import { EditorState } from 'draft-js';
 import React, { ChangeEventHandler, useRef, useState } from 'react';
 import { useClickAway, useDropArea } from 'react-use';
 import addImage from './modifiers/addImage';
-import { getUploadImage } from './register';
+import { getUploadImage, pluginConfig } from './register';
 import { SelectImageIcon } from './SelectImageIcon';
 import { defaultTheme } from './theme';
 
@@ -13,11 +13,26 @@ interface DraftToolbarControlProps {
 
 export type SelectImageControl = React.ComponentType<DraftToolbarControlProps>;
 
+const getHeightAndWidthFromDataUrl = (
+  dataURL: string
+): Promise<{ width: number; height: number }> =>
+  new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve({
+        height: img.height,
+        width: img.width,
+      });
+    };
+    img.src = dataURL;
+  });
+
 export const control: React.ComponentType<DraftToolbarControlProps> = (
   props
 ) => {
   const { getEditorState, onChange } = props;
   const refImageInput = useRef<HTMLInputElement>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showFileDropPanel, setShowFileDropPanel] = useState(false);
   const [candidateImage, setCandidateImage] = useState<string | null>(null);
   const panelRef = useRef(null);
@@ -25,12 +40,38 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
   const handleCancel = (): void => {
     setCandidateImage(null);
     setShowFileDropPanel(false);
+    setErrorMessage(null);
   };
 
-  const handleSubmit = (): void => {
+  const handleSubmit = async (): Promise<void> => {
     if (candidateImage) {
       const editorState = getEditorState();
-      const newEditorState = addImage(editorState, candidateImage, {});
+      const { width, height } = await getHeightAndWidthFromDataUrl(
+        candidateImage
+      );
+
+      // Limit image size by 500px
+      let limitWidth = width;
+      let limitHeight = height;
+      const ratio = width / height;
+      if (ratio > 1) {
+        if (width > 500) {
+          limitWidth = 500;
+          limitHeight = limitWidth / ratio;
+        }
+      } else {
+        if (height > 500) {
+          limitHeight = 500;
+          limitWidth = limitHeight * ratio;
+        }
+      }
+
+      const newEditorState = addImage(editorState, candidateImage, {
+        width: limitWidth,
+        height: limitHeight,
+        x: 0,
+        y: 0,
+      });
       onChange(newEditorState);
 
       handleCancel();
@@ -48,6 +89,15 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
     const isImage = file && file.type.split('/')[0] === 'image';
 
     if (isImage) {
+      // Check file size limitation
+      if (file.size > pluginConfig.fileLimitation * 1024 * 1024) {
+        setErrorMessage(
+          `Insira uma imagem menor que ${pluginConfig.fileLimitation}MB`
+        );
+        return;
+      }
+      setErrorMessage(null);
+
       getUploadImage()(file).then((imageUrl) => {
         if (imageUrl) {
           setCandidateImage(imageUrl);
@@ -102,6 +152,28 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
           )}
         </div>
       </div>
+
+      {errorMessage ? (
+        <div className={defaultTheme.errorMessage}>
+          <svg
+            width="12"
+            height="10"
+            viewBox="0 0 12 10"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{
+              marginRight: 3,
+            }}
+          >
+            <path
+              d="M0.5 9.5H11.5L6 0L0.5 9.5ZM6.5 8H5.5V7H6.5V8ZM6.5 6H5.5V4H6.5V6Z"
+              fill="#D93734"
+            />
+          </svg>
+
+          {errorMessage}
+        </div>
+      ) : null}
 
       <div className={defaultTheme.selectImageButtonGroup}>
         <div
