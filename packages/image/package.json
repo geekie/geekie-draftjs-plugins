@@ -1,14 +1,11 @@
 {
-  "name": "@xumm_12/geekie-image",
-  "version": "0.0.4",
+  "name": "@geekie/geekie-image",
+  "version": "0.0.1",
   "sideEffects": [
     "*.css"
   ],
   "description": "Geekie Image Plugin for DraftJS",
-  "author": {
-    "name": "xumm_12",
-    "email": "takeitallwithyou0102@gmail.com"
-  },
+  "author": "xumm_12 <takeitallwithyou0102@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/geekie/geekie-image.git"
