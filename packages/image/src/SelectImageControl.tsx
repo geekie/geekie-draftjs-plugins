@@ -69,8 +69,6 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
       const newEditorState = addImage(editorState, candidateImage, {
         width: limitWidth,
         height: limitHeight,
-        x: 0,
-        y: 0,
       });
       onChange(newEditorState);
 

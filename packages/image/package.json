@@ -1,11 +1,14 @@
 {
-  "name": "@geekie/geekie-image",
-  "version": "0.0.1",
+  "name": "@xumm_12/geekie-image",
+  "version": "0.0.4",
   "sideEffects": [
     "*.css"
   ],
   "description": "Geekie Image Plugin for DraftJS",
-  "author": "xumm_12 <takeitallwithyou0102@gmail.com>",
+  "author": {
+    "name": "xumm_12",
+    "email": "takeitallwithyou0102@gmail.com"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/geekie/geekie-image.git"
@@ -37,8 +40,8 @@
   "license": "MIT",
   "dependencies": {
     "clsx": "^1.0.4",
-    "react-use": "^17.4.0",
-    "react-rnd": "^10.3.7"
+    "react-resizable": "^3.0.4",
+    "react-use": "^17.4.0"
   },
   "peerDependencies": {
     "draft-js": "^0.10.1 || ^0.11.0",

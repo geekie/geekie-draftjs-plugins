@@ -9,6 +9,8 @@ import { setFileLimiation } from './register';
 
 export { registerUploadImageTask, setFileLimiation } from './register';
 
+export { imageEntityToHTML, htmlToImageEntity } from './transformHTML';
+
 export interface ImagePluginConfig {
   imageSizeLimitation?: number;
   decorator?(component: ComponentType<ImageProps>): ComponentType<ImageProps>;

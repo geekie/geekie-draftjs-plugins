@@ -25,6 +25,11 @@ export const defaultTheme: ImagePluginTheme = {
     width: 100%;
     height: 100%;
   `,
+  imageContainer: css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `,
   // control styles
   selectImageControlContainer: css`
     position: relative;
@@ -110,7 +115,7 @@ export const defaultTheme: ImagePluginTheme = {
     cursor: pointer;
 
     &:hover {
-      filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.25));
+      box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 0.25);
     }
   `,
   selectImageButtonDisabled: css`
@@ -129,7 +134,7 @@ export const defaultTheme: ImagePluginTheme = {
   resizeHandle: css`
     width: 8px;
     height: 8px;
-    position: relative;
     background: #00a3ff;
+    position: absolute;
   `,
 };
