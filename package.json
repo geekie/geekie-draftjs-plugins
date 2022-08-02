@@ -34,7 +34,7 @@
     "@types/react-dom": "^18.0.3",
     "@types/react-resizable": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "4.33.0",
-    "@typescript-eslint/parser": "^5.30.6",
+    "@typescript-eslint/parser": "^5.32.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^28.1.1",
     "babel-loader": "^8.2.5",
