@@ -29,7 +29,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/react-hooks": "^8.0.1",
-    "@testing-library/user-event": "^14.2.1",
+    "@testing-library/user-event": "^14.4.1",
     "@types/jest": "^27.5.0",
     "@types/react-dom": "^18.0.3",
     "@types/react-resizable": "^3.0.2",
