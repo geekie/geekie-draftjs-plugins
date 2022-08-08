@@ -20,6 +20,7 @@ const packages = [
   '@draft-js-plugins/alignment',
   '@draft-js-plugins/text-alignment',
   '@draft-js-plugins/image',
+  '@draft-js-plugins/symbol',
   '@draft-js-plugins/resizeable',
   '@draft-js-plugins/buttons',
   '@draft-js-plugins/video',
