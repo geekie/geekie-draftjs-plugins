@@ -69,7 +69,70 @@ export const defaultTheme: ImagePluginTheme = {
   `,
   addSymbolDropdown: css`
     width: 173px;
+    height: 32px;
     margin-top: 18px;
+
+    &.is-open {
+      .Dropdown-control {
+        border: 1px solid #81a3ef;
+      }
+    }
+
+    .Dropdown-menu {
+      background: #ffffff;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 4px;
+      padding-bottom: 6px;
+
+      .Dropdown-option {
+        &:hover {
+          background: rgba(97, 141, 242, 0.15);
+        }
+
+        border-radius: 4px;
+        margin: 3px 6px 0 3px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 21px;
+        letter-spacing: 0.012em;
+        color: #000000;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 4px 12px;
+      }
+
+      .Dropdown-option.is-selected {
+        background: rgba(97, 141, 242, 0.15);
+        color: rgba(11, 67, 191, 1);
+      }
+    }
+
+    .Dropdown-control {
+      background: #ffffff;
+      border: 1px solid #99a0ac;
+      padding: 8px 30px 8px 13px;
+      border-radius: 5px;
+      height: 32px;
+
+      &:hover {
+        border: 1px solid #626975;
+      }
+
+      .Dropdown-placeholder {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        color: #333333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .Dropdown-arrow {
+        border-color: #626975 transparent transparent;
+      }
+    }
   `,
   symbolGrids: css`
     overflow: hidden;
