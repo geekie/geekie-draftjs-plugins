@@ -1,6 +1,6 @@
 import { EditorState } from "draft-js";
 import React from "react";
-import insertTexBlock from "./modifiers/insertTexBlock";
+import insertTexBlock from "./modifiers/insertKatexBlock";
 
 export const ButtonIcon = (props: {onClick: () => void}): JSX.Element => (
   <svg

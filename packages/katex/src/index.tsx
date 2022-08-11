@@ -2,7 +2,7 @@ import { ContentBlock, EditorState } from "draft-js";
 import { KATEX_ENTITY } from "./entity";
 import control from "./control";
 import KatexBlock, { KateBlockProps } from "./components/KatexBlock";
-import removeTexBlock from "./modifiers/removeTexBlock";
+import removeTexBlock from "./modifiers/removeKatexBlock";
 
 type DraftStateMethods = {
   getEditorState: () => EditorState;
