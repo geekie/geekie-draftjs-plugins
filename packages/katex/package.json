@@ -1,0 +1,60 @@
+{
+  "name": "@geekie/geekie-katex",
+  "version": "0.0.1",
+  "sideEffects": [
+    "*.css"
+  ],
+  "description": "Geekie Katex Plugin for DraftJS",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geekie/geekie-image.git"
+  },
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.esm.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "editor",
+    "wysiwyg",
+    "draft",
+    "react",
+    "ux",
+    "components",
+    "widget",
+    "katex",
+    "latex",
+    "react-component"
+  ],
+  "scripts": {
+    "clean": "yarn rimraf lib",
+    "build": "yarn build:js && yarn build:dts && yarn build:css",
+    "build:js": "yarn rollup --config ../../rollup.config.js",
+    "build:dts": "tsc -d --emitDeclarationOnly --declarationDir lib",
+    "build:css": "node ../../scripts/build-css.js $(pwd)",
+    "test": "jest"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "katex": "0.16.0"
+  },
+  "devDependencies": {
+    "@types/katex": "0.14.0"
+  },
+  "peerDependencies": {
+    "draft-js": "^0.10.1 || ^0.11.0",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/geekie/geekie-image/issues"
+  },
+  "homepage": "https://github.com/geekie/geekie-image#readme",
+  "directories": {
+    "lib": "lib"
+  }
+}
