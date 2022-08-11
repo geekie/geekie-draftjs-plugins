@@ -2,7 +2,7 @@ import { ContentBlock, EditorState } from "draft-js";
 import { KATEX_ENTITY } from "./entity";
 import control from "./control";
 import KatexBlock, { KateBlockProps } from "./components/KatexBlock";
-import removeTexBlock from "./modifiers/removeKatexBlock";
+import removeKatexBlock from "./modifiers/removeKatexBlock";
 
 type DraftStateMethods = {
   getEditorState: () => EditorState;
@@ -65,7 +65,7 @@ export default (): KatexPlugin => {
           onRemove: (blockKey: string) => {
             blocksInEditingMode.delete(blockKey);
             const editorState = getEditorState();
-            const newEditorState = removeTexBlock(editorState, blockKey);
+            const newEditorState = removeKatexBlock(editorState, blockKey);
             setEditorState(newEditorState);
           }
         }

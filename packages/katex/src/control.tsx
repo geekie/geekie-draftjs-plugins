@@ -1,6 +1,6 @@
 import { EditorState } from "draft-js";
 import React from "react";
-import insertTexBlock from "./modifiers/insertKatexBlock";
+import insertKatexBlock from "./modifiers/insertKatexBlock";
 
 export const ButtonIcon = (props: {onClick: () => void}): JSX.Element => (
   <svg
@@ -31,10 +31,7 @@ const InsertKatexBlockButton = (props: Props): JSX.Element => {
   const onClick = (): void => {
     const editorState = getEditorState();
     onChange(
-      insertTexBlock({
-        initialValue: "2+2=4",
-        editorState
-      })
+      insertKatexBlock({ editorState })
     );
   };
 
