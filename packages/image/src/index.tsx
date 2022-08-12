@@ -5,9 +5,9 @@ import addImage, { IMAGE_ENTITY_TYPE } from './modifiers/addImage';
 import ImageComponent, { ImageProps } from './Image';
 import { control, SelectImageControl } from './SelectImageControl';
 import { defaultTheme } from './theme';
-import { setFileLimiation } from './register';
+import { setFileLimitation } from './register';
 
-export { registerUploadImageTask, setFileLimiation } from './register';
+export { registerUploadImageTask, setFileLimitation } from './register';
 
 export { imageEntityToHTML, htmlToImageEntity } from './transformHTML';
 
@@ -58,7 +58,7 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
   }
 
   if (typeof config.imageSizeLimitation === 'number') {
-    setFileLimiation(config.imageSizeLimitation);
+    setFileLimitation(config.imageSizeLimitation);
   }
 
   const ThemedImage = (props: ImageProps): ReactElement => (
