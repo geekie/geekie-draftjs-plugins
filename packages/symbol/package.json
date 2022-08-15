@@ -38,7 +38,8 @@
   "dependencies": {
     "clsx": "^1.0.4",
     "react-use": "^17.4.0",
-    "react-dropdown": "^1.1.0"
+    "react-dropdown": "^1.1.0",
+    "react-draggable": "^4.4.5"
   },
   "peerDependencies": {
     "draft-js": "^0.10.1 || ^0.11.0",

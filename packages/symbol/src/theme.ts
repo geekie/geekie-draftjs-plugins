@@ -1,8 +1,6 @@
 import { css } from 'linaria';
 
 export interface ImagePluginTheme {
-  image?: string;
-  imageContainer?: string;
   closeIcon?: string;
   addSymbolControlContainer?: string;
   addSymbolControlPanel?: string;
@@ -16,16 +14,6 @@ export interface ImagePluginTheme {
 }
 
 export const defaultTheme: ImagePluginTheme = {
-  image: css`
-    pointer-events: none;
-    width: 100%;
-    height: 100%;
-  `,
-  imageContainer: css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  `,
   // control styles
   addSymbolControlContainer: css`
     position: relative;
@@ -83,6 +71,7 @@ export const defaultTheme: ImagePluginTheme = {
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 4px;
       padding-bottom: 6px;
+      width: 195px;
 
       .Dropdown-option {
         &:hover {
@@ -114,6 +103,7 @@ export const defaultTheme: ImagePluginTheme = {
       padding: 8px 30px 8px 13px;
       border-radius: 5px;
       height: 32px;
+      width: 195px;
 
       &:hover {
         border: 1px solid #626975;
@@ -142,6 +132,33 @@ export const defaultTheme: ImagePluginTheme = {
     width: 242px;
     height: 172px;
     position: relative;
+
+    &::-webkit-scrollbar {
+      height: 16px;
+      overflow: visible;
+      width: 16px;
+    }
+
+    &::-webkit-scrollbar-button {
+      height: 0;
+      width: 0;
+    }
+
+    &::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-style: solid;
+      border-color: transparent;
+      background-color: #dadce0;
+      box-shadow: none;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: none;
+      margin: 0 4px;
+    }
   `,
   symbolGrid: css`
     user-select: none;

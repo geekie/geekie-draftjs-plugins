@@ -6,6 +6,7 @@ import addSymbol from './modifiers/addSymbol';
 import { AddSymbolIcon, CloseIcon } from './AddSymbolIcon';
 import { defaultTheme } from './theme';
 import { catetoriesOptions, symbols } from './constants';
+import Draggable from 'react-draggable';
 
 interface DraftToolbarControlProps {
   getEditorState: () => EditorState;
@@ -37,49 +38,51 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
   };
 
   const renderSymbolPanel: () => React.ReactElement = () => (
-    <div className={defaultTheme.addSymbolControlPanel}>
-      <div className={defaultTheme.addSymbolControlPanelTitle}>
-        <span className={defaultTheme.addSymbolControlPanelTitleLabel}>
-          Selecione um caractere especial
-        </span>
-        <span className={defaultTheme.addSymbolControlPanelTitleBorder} />
+    <Draggable>
+      <div className={defaultTheme.addSymbolControlPanel}>
+        <div className={defaultTheme.addSymbolControlPanelTitle}>
+          <span className={defaultTheme.addSymbolControlPanelTitleLabel}>
+            Selecione um caractere especial
+          </span>
+          <span className={defaultTheme.addSymbolControlPanelTitleBorder} />
+        </div>
+
+        <CloseIcon className={defaultTheme.closeIcon} onClick={handleCancel} />
+
+        <Dropdown
+          className={defaultTheme.addSymbolDropdown}
+          options={catetoriesOptions}
+          onChange={(option) => setCurrentCategory(option.value)}
+          value={currentCategory}
+        />
+
+        <div
+          className={defaultTheme.symbolGrids}
+          style={currentSymbols.length <= 63 ? { overflowY: 'hidden' } : {}}
+        >
+          {currentSymbols.map((symbol: string) => (
+            <div
+              key={symbol}
+              className={defaultTheme.symbolGrid}
+              onClick={() => {
+                handleInsertSymbol(symbol);
+              }}
+            >
+              {symbol}
+            </div>
+          ))}
+        </div>
+
+        <div
+          className={defaultTheme.closeButton}
+          onClick={() => {
+            handleCancel();
+          }}
+        >
+          Fechar
+        </div>
       </div>
-
-      <CloseIcon className={defaultTheme.closeIcon} onClick={handleCancel} />
-
-      <Dropdown
-        className={defaultTheme.addSymbolDropdown}
-        options={catetoriesOptions}
-        onChange={(option) => setCurrentCategory(option.value)}
-        value={currentCategory}
-      />
-
-      <div
-        className={defaultTheme.symbolGrids}
-        style={currentSymbols.length <= 63 ? { overflowY: 'hidden' } : {}}
-      >
-        {currentSymbols.map((symbol: string) => (
-          <div
-            key={symbol}
-            className={defaultTheme.symbolGrid}
-            onClick={() => {
-              handleInsertSymbol(symbol);
-            }}
-          >
-            {symbol}
-          </div>
-        ))}
-      </div>
-
-      <div
-        className={defaultTheme.closeButton}
-        onClick={() => {
-          handleCancel();
-        }}
-      >
-        Fechar
-      </div>
-    </div>
+    </Draggable>
   );
 
   return (
