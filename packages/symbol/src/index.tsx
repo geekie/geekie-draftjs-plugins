@@ -1,3 +1,4 @@
+// @ts-ignore
 import { EditorPlugin } from '@draft-js-plugins/editor';
 import { control, SelectImageControl } from './AddSymbolControl';
 
