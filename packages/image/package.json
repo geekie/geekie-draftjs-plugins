@@ -8,7 +8,7 @@
   "author": "xumm_12 <takeitallwithyou0102@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/geekie/geekie-image.git"
+    "url": "https://github.com/geekie/geekie-draftjs-plugins"
   },
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
@@ -48,10 +48,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "bugs": {
-    "url": "https://github.com/geekie/geekie-image/issues"
-  },
-  "homepage": "https://github.com/geekie/geekie-image#readme",
+  "homepage": "https://github.com/geekie/geekie-draftjs-plugins/tree/main/packages/image",
   "directories": {
     "lib": "lib"
   }

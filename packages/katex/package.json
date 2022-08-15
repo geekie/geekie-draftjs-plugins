@@ -1,13 +1,13 @@
 {
   "name": "@geekie/geekie-katex",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "sideEffects": [
     "*.css"
   ],
   "description": "Geekie Katex Plugin for DraftJS",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/geekie/geekie-image.git"
+    "url": "https://github.com/geekie/geekie-draftjs-plugins"
   },
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
@@ -52,10 +52,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "bugs": {
-    "url": "https://github.com/geekie/geekie-image/issues"
-  },
-  "homepage": "https://github.com/geekie/geekie-image#readme",
+  "homepage": "https://github.com/geekie/geekie-draftjs-plugins/tree/main/packages/katex",
   "directories": {
     "lib": "lib"
   }
