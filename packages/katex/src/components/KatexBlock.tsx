@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import katex from "katex";
 import { ContentBlock, EditorState } from "draft-js";
+import MathInput from "math-input-web-support/dist/components/app";
 import KatexOutput from "./KatexOutput";
 
 type KatexInternals = typeof katex & {
@@ -36,8 +37,10 @@ const KatexBlock = (props: Props): JSX.Element => {
   const [isInvalidTex, setIsInvalidTex] = useState(data.isInvalidTex);
   const [value, setValue] = useState(data.value);
 
-  const onValueChange = (evt: ChangeEvent<HTMLTextAreaElement>): void => {
-    const inputValue = evt.target.value;
+  const callbacks: {[key: string]: () => void} = {};
+
+  const onValueChange = (evt: ChangeEvent<HTMLTextAreaElement> | string): void => {
+    const inputValue = typeof evt === 'string' ? evt : evt.target.value;
     try {
       if (inputValue.trim() === '') throw new Error();
       (katex as KatexInternals).__parse(inputValue);
@@ -47,6 +50,10 @@ const KatexBlock = (props: Props): JSX.Element => {
     } finally {
       setValue(inputValue);
     }
+  };
+
+  const onFocus = (): void => {
+    if (callbacks.blur) callbacks.blur();
   };
 
   const startEdit = (): void => {
@@ -72,12 +79,11 @@ const KatexBlock = (props: Props): JSX.Element => {
     finishEdit(editorState);
   };
 
-  if (data.isNew && !isEditing)
-    startEdit();
+  if (data.isNew && !isEditing) startEdit();
 
-  const editingMode = (
+  const editingForm = (
     <div>
-      <textarea onChange={onValueChange} value={value} />
+      <textarea onChange={onValueChange} onFocus={onFocus} value={value} />
       <div>
         <button disabled={isInvalidTex || value.trim() === ''} onClick={save}>
           {isInvalidTex ? "Sintaxe inválida" : "Concluir edição"}
@@ -89,9 +95,23 @@ const KatexBlock = (props: Props): JSX.Element => {
     </div>
   );
 
-  const displayMode = <KatexOutput onClick={startEdit} value={value} />;
-
-  return isEditing ? editingMode : displayMode;
+  const display = isEditing
+    ? <MathInput
+        callbacks={callbacks}
+        displayMode
+        katex={katex}
+        onChange={onValueChange}
+        value={value}
+      />
+    // ? <KatexOutput onClick={() => {}} value={value} />
+    : <KatexOutput onClick={startEdit} value={value} />;
+  
+  return (
+    <div>
+      {display}
+      {isEditing && editingForm}
+    </div>
+  );
 };
 
 export default KatexBlock;

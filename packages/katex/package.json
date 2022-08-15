@@ -37,7 +37,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "katex": "0.16.0"
+    "katex": "0.16.0",
+    "math-input-web-support": "0.1.6",
+    "mathquill": "^0.10.1-a"
   },
   "devDependencies": {
     "@types/katex": "0.14.0"
