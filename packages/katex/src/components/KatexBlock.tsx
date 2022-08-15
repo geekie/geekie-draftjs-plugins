@@ -81,14 +81,22 @@ const KatexBlock = (props: Props): JSX.Element => {
 
   if (data.isNew && !isEditing) startEdit();
 
+  const buttonStyle: React.CSSProperties = {
+    border: '1px solid #f1f1f1',
+    borderRadius: '2px',
+    padding: '5px 10px',
+    background: '#fff',
+    margin: '0 3px'
+  };
+
   const editingForm = (
     <div>
       <textarea onChange={onValueChange} onFocus={onFocus} value={value} />
       <div>
-        <button disabled={isInvalidTex || value.trim() === ''} onClick={save}>
+        <button style={buttonStyle} disabled={isInvalidTex || value.trim() === ''} onClick={save}>
           {isInvalidTex ? "Sintaxe inválida" : "Concluir edição"}
         </button>
-        <button type="button" onClick={remove}>
+        <button style={buttonStyle} onClick={remove}>
           Remover
         </button>
       </div>
@@ -103,11 +111,14 @@ const KatexBlock = (props: Props): JSX.Element => {
         onChange={onValueChange}
         value={value}
       />
-    // ? <KatexOutput onClick={() => {}} value={value} />
     : <KatexOutput onClick={startEdit} value={value} />;
+
+  const style: React.CSSProperties = {
+    textAlign: 'center'
+  };
   
   return (
-    <div>
+    <div style={style}>
       {display}
       {isEditing && editingForm}
     </div>

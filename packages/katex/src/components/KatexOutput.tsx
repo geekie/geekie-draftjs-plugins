@@ -25,7 +25,12 @@ const KatexOutput = (props: Props): JSX.Element => {
 
   update();
 
-  return <div ref={(c) => setContainer(c)} onClick={onClick} />;
+  const style: React.CSSProperties = {
+    cursor: 'pointer',
+    userSelect: 'none'
+  };
+
+  return <div ref={(c) => setContainer(c)} onClick={onClick} style={style} />;
 };
 
 export default KatexOutput;

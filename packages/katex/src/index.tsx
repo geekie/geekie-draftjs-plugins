@@ -52,8 +52,8 @@ export default (): KatexPlugin => {
           },
 
           onFinishEdit: (blockKey: string, newEditorState: EditorState) => {
-            setReadOnly(false);
             blocksInEditingMode.delete(blockKey);
+            if (!blocksInEditingMode.size) setReadOnly(false);
             setEditorState(
               EditorState.forceSelection(
                 newEditorState,
