@@ -121,35 +121,23 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
 
   const renderFileDropPanel: () => React.ReactElement = () => (
     <div
-      className={
-        'GeekieImage-SelectImageControlPanel' &&
-        defaultTheme.selectImageControlPanel
-      }
+      className={`GeekieImage-SelectImageControlPanel ${defaultTheme.selectImageControlPanel}`}
     >
       <div
-        className={
-          'GeekieImage-SelectImageControlPanel__title' &&
-          defaultTheme.selectImageControlPanelTitle
-        }
+        className={`GeekieImage-SelectImageControlPanel__title' ${defaultTheme.selectImageControlPanelTitle}`}
       >
         <span
-          className={
-            'GeekieImage-SelectImageControlPanel__title__label' &&
-            defaultTheme.selectImageControlPanelTitleLabel
-          }
+          className={`GeekieImage-SelectImageControlPanel__title__label ${defaultTheme.selectImageControlPanelTitleLabel}`}
         >
           Carregar arquivo
         </span>
         <span
-          className={
-            'GeekieImage-SelectImageControlPanel__title__border' &&
-            defaultTheme.selectImageControlPanelTitleBorder
-          }
+          className={`GeekieImage-SelectImageControlPanel__title__border ${defaultTheme.selectImageControlPanelTitleBorder}`}
         />
       </div>
 
       <div
-        className={'GeekieImage-DropFileZone' && defaultTheme.dropFileZone}
+        className={`GeekieImage-DropFileZone ${defaultTheme.dropFileZone}`}
         onClick={() => {
           if (refImageInput.current) {
             refImageInput.current.click();
@@ -158,26 +146,17 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
         {...bond}
       >
         <div
-          className={
-            'GeekieImage-DropFileZone__content' &&
-            defaultTheme.dropFileZoneContent
-          }
+          className={`GeekieImage-DropFileZone__content ${defaultTheme.dropFileZoneContent}`}
         >
           {!candidateImage ? (
             <div
-              className={
-                'GeekieImage-DropFileZone__placeholder' &&
-                defaultTheme.dropFileZonePlaceholder
-              }
+              className={`GeekieImage-DropFileZone__placeholder ${defaultTheme.dropFileZonePlaceholder}`}
             >
               Arraste uma imagem aqui ou clique para carregar
             </div>
           ) : (
             <img
-              className={
-                'GeekieImage-DropFileZone__image' &&
-                defaultTheme.dropFileZoneImage
-              }
+              className={`GeekieImage-DropFileZone__image ${defaultTheme.dropFileZoneImage}`}
               src={candidateImage}
             />
           )}
@@ -186,7 +165,7 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
 
       {errorMessage ? (
         <div
-          className={'GeekieImage-ErrorMessage' && defaultTheme.errorMessage}
+          className={`GeekieImage-ErrorMessage ${defaultTheme.errorMessage}`}
         >
           <svg
             width="12"
@@ -209,10 +188,7 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
       ) : null}
 
       <div
-        className={
-          'GeekieImage-SelectImageButtonGroup' &&
-          defaultTheme.selectImageButtonGroup
-        }
+        className={`GeekieImage-SelectImageButtonGroup ${defaultTheme.selectImageButtonGroup}`}
       >
         <div
           className={`GeekieImage-SelectImageButton ${
@@ -229,9 +205,7 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
           Ok
         </div>
         <div
-          className={
-            'GeekieImage-SelectImageButton' && defaultTheme.selectImageButton
-          }
+          className={`GeekieImage-SelectImageButton ${defaultTheme.selectImageButton}`}
           onClick={() => {
             handleCancel();
           }}
@@ -244,10 +218,7 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
 
   return (
     <span
-      className={
-        'GeekieImage-SelectImageControlContainer' &&
-        defaultTheme.selectImageControlContainer
-      }
+      className={`GeekieImage-SelectImageControlContainer ${defaultTheme.selectImageControlContainer}`}
       ref={panelRef}
     >
       <button
