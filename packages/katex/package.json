@@ -1,6 +1,6 @@
 {
   "name": "@geekie/geekie-katex",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "sideEffects": [
     "*.css"
   ],
@@ -38,8 +38,8 @@
   "license": "MIT",
   "dependencies": {
     "katex": "0.16.0",
-    "math-input-web-support": "0.1.6",
-    "mathquill": "^0.10.1-a"
+    "math-input-web-support": "0.2.4",
+    "mathquill-commonjs": "0.10.3"
   },
   "devDependencies": {
     "@types/katex": "0.14.0"
