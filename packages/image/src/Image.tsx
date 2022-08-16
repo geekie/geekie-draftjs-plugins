@@ -101,13 +101,17 @@ export default React.forwardRef<HTMLImageElement, ImageProps>(
       }
 
       return (
-        <div style={style} className={defaultTheme.resizeHandle} ref={ref} />
+        <div
+          style={style}
+          className={'GeekieImage-ResizeHandle' && defaultTheme.resizeHandle}
+          ref={ref}
+        />
       );
     };
 
     return (
       <div
-        className={defaultTheme.imageContainer}
+        className={'GeekieImage-ImageContainer' && defaultTheme.imageContainer}
         style={{ height }}
         ref={containerRef}
         onClick={() => setIsFocus(true)}
@@ -144,7 +148,7 @@ export default React.forwardRef<HTMLImageElement, ImageProps>(
               }
               role="presentation"
               draggable="false"
-              className={defaultTheme.image}
+              className={'GeekieImage-Image' && defaultTheme.image}
             />
           </div>
         </Resizable>
