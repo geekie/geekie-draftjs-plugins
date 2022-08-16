@@ -1,5 +1,6 @@
 import { ContentBlock, EditorState } from "draft-js";
 import 'mathquill-commonjs/mathquill.css';
+import 'katex/dist/katex.min.css';
 import { KATEX_ENTITY } from "./entity";
 import control from "./control";
 import KatexBlock, { KateBlockProps } from "./components/KatexBlock";

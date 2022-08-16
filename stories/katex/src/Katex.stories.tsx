@@ -1,7 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { DraftailEditor } from "draftail";
-import 'katex/dist/katex.min.css';
 import createKatexPlugin from "../../../packages/katex/src";
 
 export default {
