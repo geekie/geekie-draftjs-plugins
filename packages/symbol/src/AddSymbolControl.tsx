@@ -1,12 +1,12 @@
 import { EditorState } from 'draft-js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import Draggable from 'react-draggable';
 import addSymbol from './modifiers/addSymbol';
 import { AddSymbolIcon, CloseIcon } from './AddSymbolIcon';
 import { defaultTheme } from './theme';
 import { catetoriesOptions, symbols } from './constants';
-import Draggable from 'react-draggable';
 
 interface DraftToolbarControlProps {
   getEditorState: () => EditorState;
@@ -15,18 +15,47 @@ interface DraftToolbarControlProps {
 
 export type SelectImageControl = React.ComponentType<DraftToolbarControlProps>;
 
+function getRecentlyUsedFromStorage(): string[] {
+  try {
+    const recentlyUsedString =
+      localStorage.getItem('Symbol_Editor_Plugin_Recently_Used') || '';
+
+    return recentlyUsedString.split(',').filter((v) => !!v);
+  } catch (_err) {
+    return [];
+  }
+}
+
+function setRecentlyUsedToStorage(list: string[]): string {
+  try {
+    const value = list.join(',');
+    localStorage.setItem('Symbol_Editor_Plugin_Recently_Used', value);
+    return value;
+  } catch (_err) {
+    return '';
+  }
+}
+
 export const control: React.ComponentType<DraftToolbarControlProps> = (
   props
 ) => {
   const { getEditorState, onChange } = props;
   const [showSymbolPanel, setShowSymbolPanel] = useState(false);
-  const [currentCategory, setCurrentCategory] = useState(catetoriesOptions[0]);
+  const [recentlyUsedList, setRecentlyUsedList] = useState(
+    getRecentlyUsedFromStorage()
+  );
+  const [currentCategory, setCurrentCategory] = useState(
+    recentlyUsedList.length > 0 ? 'Recentes' : catetoriesOptions[0]
+  );
 
   const handleCancel = (): void => {
     setShowSymbolPanel(false);
   };
 
-  const currentSymbols = symbols[currentCategory] || [];
+  const currentSymbols =
+    currentCategory === 'Recentes'
+      ? recentlyUsedList
+      : symbols[currentCategory] || [];
 
   const handleInsertSymbol = (symbol: string): void => {
     if (symbol) {
@@ -34,8 +63,20 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
 
       const newEditorState = addSymbol(editorState, symbol);
       onChange(newEditorState);
+
+      if (currentCategory !== 'Recentes') {
+        // Update recently used list
+        const newList = recentlyUsedList.filter((v) => v !== symbol);
+        newList.unshift(symbol);
+        setRecentlyUsedList(newList);
+      }
     }
   };
+
+  useEffect(() => {
+    // Update recently used list
+    setRecentlyUsedToStorage(recentlyUsedList);
+  }, [recentlyUsedList]);
 
   const renderSymbolPanel: () => React.ReactElement = () => (
     <Draggable>
@@ -61,7 +102,9 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
 
         <Dropdown
           className={`GeekieSymbol-AddSymbolDropdown ${defaultTheme.addSymbolDropdown}`}
-          options={catetoriesOptions}
+          options={(recentlyUsedList.length > 0 ? ['Recentes'] : []).concat(
+            catetoriesOptions
+          )}
           onChange={(option) => setCurrentCategory(option.value)}
           value={currentCategory}
         />
