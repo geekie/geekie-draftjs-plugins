@@ -76,6 +76,8 @@ export const defaultTheme: ImagePluginTheme = {
       .Dropdown-option {
         &:hover {
           background: rgba(97, 141, 242, 0.15);
+          color: #0b43bf;
+          font-weight: bold;
         }
 
         border-radius: 4px;
@@ -94,6 +96,7 @@ export const defaultTheme: ImagePluginTheme = {
       .Dropdown-option.is-selected {
         background: rgba(97, 141, 242, 0.15);
         color: rgba(11, 67, 191, 1);
+        font-weight: bold;
       }
     }
 
@@ -151,13 +154,22 @@ export const defaultTheme: ImagePluginTheme = {
     &::-webkit-scrollbar-thumb {
       border-style: solid;
       border-color: transparent;
-      background-color: #dadce0;
+      border-radius: 8px;
       box-shadow: none;
+      background-color: rgba(153, 160, 172, 1);
+      background-clip: padding-box;
+      border: solid transparent;
+      border-width: 4px;
+      min-height: 80px;
+      padding: 100px 0 0;
     }
 
     &::-webkit-scrollbar-track {
       box-shadow: none;
       margin: 0 4px;
+      background-clip: padding-box;
+      border: solid transparent;
+      border-width: 0 0 0 4px;
     }
   `,
   symbolGrid: css`
