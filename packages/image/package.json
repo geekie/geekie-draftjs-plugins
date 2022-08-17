@@ -1,6 +1,6 @@
 {
   "name": "@geekie/geekie-image",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "sideEffects": [
     "*.css"
   ],
