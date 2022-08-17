@@ -23,6 +23,6 @@ export const pluginConfig = {
   fileLimitation: 100,
 };
 
-export const setFileLimiation = (limitation: number): void => {
+export const setFileLimitation = (limitation: number): void => {
   pluginConfig.fileLimitation = limitation;
 };

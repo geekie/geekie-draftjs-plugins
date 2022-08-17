@@ -80,18 +80,28 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
 
   const renderSymbolPanel: () => React.ReactElement = () => (
     <Draggable>
-      <div className={defaultTheme.addSymbolControlPanel}>
-        <div className={defaultTheme.addSymbolControlPanelTitle}>
-          <span className={defaultTheme.addSymbolControlPanelTitleLabel}>
+      <div
+        className={`GeekieSymbol-AddSymbolControlPanel ${defaultTheme.addSymbolControlPanel}`}
+      >
+        <div
+          className={`GeekieSymbol-AddSymbolControlPanel__title ${defaultTheme.addSymbolControlPanelTitle}`}
+        >
+          <span
+            className={`GeekieSymbol-AddSymbolControlPanel__title__label ${defaultTheme.addSymbolControlPanelTitleLabel}`}
+          >
             Selecione um caractere especial
           </span>
-          <span className={defaultTheme.addSymbolControlPanelTitleBorder} />
+          <span
+            className={`GeekieSymbol-AddSymbolControlPanel__title__border ${defaultTheme.addSymbolControlPanelTitleBorder}`}
+          />
         </div>
-
-        <CloseIcon className={defaultTheme.closeIcon} onClick={handleCancel} />
+        <CloseIcon
+          className={`GeekieSymbol-CloseIcon ${defaultTheme.closeIcon}`}
+          onClick={handleCancel}
+        />
 
         <Dropdown
-          className={defaultTheme.addSymbolDropdown}
+          className={`GeekieSymbol-AddSymbolDropdown ${defaultTheme.addSymbolDropdown}`}
           options={(recentlyUsedList.length > 0 ? ['Recentes'] : []).concat(
             catetoriesOptions
           )}
@@ -100,13 +110,13 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
         />
 
         <div
-          className={defaultTheme.symbolGrids}
+          className={`GeekieSymbol-SymbolGrids ${defaultTheme.symbolGrids}`}
           style={currentSymbols.length <= 63 ? { overflowY: 'hidden' } : {}}
         >
           {currentSymbols.map((symbol: string) => (
             <div
               key={symbol}
-              className={defaultTheme.symbolGrid}
+              className={`GeekieSymbol-SymbolGrid ${defaultTheme.symbolGrid}`}
               onClick={() => {
                 handleInsertSymbol(symbol);
               }}
@@ -117,7 +127,7 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
         </div>
 
         <div
-          className={defaultTheme.closeButton}
+          className={`GeekieSymbol-CloseButton ${defaultTheme.closeButton}`}
           onClick={() => {
             handleCancel();
           }}
@@ -129,15 +139,19 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
   );
 
   return (
-    <span className={defaultTheme.addSymbolControlContainer}>
-      <button className="Draftail-ToolbarButton">
+    <span
+      className={`GeekieSymbol-AddSymbolControlContainer ${defaultTheme.addSymbolControlContainer}`}
+    >
+      <button
+        className={`Draftail-ToolbarButton ${
+          showSymbolPanel ? 'Draftail-ToolbarButton--active' : ''
+        }`}
+        onClick={() => {
+          setShowSymbolPanel(!showSymbolPanel);
+        }}
+      >
         <span className="Draftail-ToolbarButton__label">
-          <AddSymbolIcon
-            style={{ width: '12px', height: '12px' }}
-            onClick={() => {
-              setShowSymbolPanel(!showSymbolPanel);
-            }}
-          />
+          <AddSymbolIcon style={{ width: '12px', height: '12px' }} />
         </span>
       </button>
 

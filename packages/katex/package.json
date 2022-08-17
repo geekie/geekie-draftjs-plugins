@@ -1,11 +1,10 @@
 {
-  "name": "@geekie/geekie-image",
-  "version": "0.0.1",
+  "name": "@geekie/geekie-katex",
+  "version": "0.0.6",
   "sideEffects": [
     "*.css"
   ],
-  "description": "Geekie Image Plugin for DraftJS",
-  "author": "xumm_12 <takeitallwithyou0102@gmail.com>",
+  "description": "Geekie Katex Plugin for DraftJS",
   "repository": {
     "type": "git",
     "url": "https://github.com/geekie/geekie-draftjs-plugins"
@@ -24,6 +23,8 @@
     "ux",
     "components",
     "widget",
+    "katex",
+    "latex",
     "react-component"
   ],
   "scripts": {
@@ -36,9 +37,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "clsx": "^1.0.4",
-    "react-resizable": "^3.0.4",
-    "react-use": "^17.4.0"
+    "katex": "0.16.0",
+    "math-input-web-support": "0.2.4",
+    "mathquill-commonjs": "0.10.3"
+  },
+  "devDependencies": {
+    "@types/katex": "0.14.0"
   },
   "peerDependencies": {
     "draft-js": "^0.10.1 || ^0.11.0",
@@ -48,7 +52,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/geekie/geekie-draftjs-plugins/tree/main/packages/image",
+  "homepage": "https://github.com/geekie/geekie-draftjs-plugins/tree/main/packages/katex",
   "directories": {
     "lib": "lib"
   }
