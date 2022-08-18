@@ -22,7 +22,7 @@ export const imageEntityToHTML = (
 
     return `<img src="${src}" ${imageTypeAttributeLabel} ${setDataAttribute(
       'width',
-      `${height}`
+      `${width}`
     )} ${setDataAttribute(
       'height',
       `${height}`
