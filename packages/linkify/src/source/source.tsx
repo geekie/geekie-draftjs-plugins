@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { ENTITY_TYPE } from "draftail";
-import { RichUtils, Modifier, EditorState, SelectionState } from "draft-js";
-import './source.css'
+import { Modifier, EditorState, SelectionState, EditorChangeType } from "draft-js";
 
 type State = {
   url: string;
@@ -13,6 +12,7 @@ type State = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 class LinkSource extends Component<any, State> {
   inputContentRef?: HTMLInputElement | null;
+  inputUrlRef?: HTMLInputElement | null;
 
   constructor(props: any) {
     super(props);
@@ -34,7 +34,6 @@ class LinkSource extends Component<any, State> {
     this.state = state;
 
     this.onRequestClose = this.onRequestClose.bind(this);
-    this.onAfterOpen = this.onAfterOpen.bind(this);
     this.onConfirm = this.onConfirm.bind(this);
     this.onChangeURL = this.onChangeURL.bind(this);
     this.onChangeContent = this.onChangeContent.bind(this);
@@ -51,17 +50,7 @@ class LinkSource extends Component<any, State> {
   onRequestClose(e: React.SyntheticEvent) : void {
     const { onClose } = this.props;
     e.preventDefault();
-
     onClose();
-  }
-
-  onAfterOpen() : void {
-    const input = this.inputRef;
-
-    if (input) {
-      input.focus();
-      input.select();
-    }
   }
 
   onChangeURL(e: React.ChangeEvent<HTMLInputElement>) : void {
@@ -77,8 +66,8 @@ class LinkSource extends Component<any, State> {
       this.setState({ content });
     }
   }
-
-  render() : void {
+  //todo tipar
+  render() : any {
     const { textDirectionality } = this.props;
     const { url, content } = this.state;
     return (
@@ -178,10 +167,10 @@ function getSelectionText(editorState:EditorState) : string{
   return selectedText;
 }
 
-function editText(editorState:EditorState, selection:SelectionState, content:string) :void{
+function editText(editorState:EditorState, selection:SelectionState, content:string) : EditorState{
   const contentState = editorState.getCurrentContent();
   const newContentState = Modifier.replaceText(contentState, selection, content);
-  const newEditorState = EditorState.push(editorState, newContentState, 'replace-text');
+  const newEditorState = EditorState.push(editorState, newContentState, 'replace-text' as EditorChangeType);
   return newEditorState;
 }
 

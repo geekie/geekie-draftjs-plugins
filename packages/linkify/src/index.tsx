@@ -2,7 +2,8 @@ import { ENTITY_TYPE } from "draftail";
 import source from "./source/source";
 import decorator from "./decorator/decorator";
 
-export default (config) => {
+//todo tipar
+export default (config:any) => {
   return {
     entityType: {
       //icon: "#icon-link",
