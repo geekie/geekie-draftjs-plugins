@@ -30,7 +30,7 @@ const KatexOutput = (props: Props): JSX.Element => {
     userSelect: 'none'
   };
 
-  return <div ref={(c) => setContainer(c)} onClick={onClick} style={style} />;
+  return <div className="GeekieKatex-Output" ref={(c) => setContainer(c)} onClick={onClick} style={style} />;
 };
 
 export default KatexOutput;
