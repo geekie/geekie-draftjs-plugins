@@ -90,9 +90,9 @@ const KatexBlock = (props: Props): JSX.Element => {
   };
 
   const editingForm = (
-    <div>
+    <div className="GeekieKatex-EditPanel">
       <textarea onChange={onValueChange} onFocus={onFocus} value={value} />
-      <div>
+      <div className="GeekieKatex-EditPanel-Buttons">
         <button style={buttonStyle} disabled={isInvalidTex || value.trim() === ''} onClick={save}>
           {isInvalidTex ? "Sintaxe inválida" : "Concluir edição"}
         </button>
