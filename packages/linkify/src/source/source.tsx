@@ -144,7 +144,7 @@ class LinkSource extends Component<any, State> {
           type="text"
           onChange={this.onChangeURL}
           value={url}
-          placeholder="www.example.com"
+          placeholder="https://"
           id="geekie-link-id-url"
           style={styleInput}
         />
@@ -190,7 +190,7 @@ function addLink(
   const contentState = editorState.getCurrentContent();
   if (url !== '') {
     let finalUrl = url;
-    if (!url.startsWith('http://') || !url.startsWith('https://'))
+    if (!url.startsWith('http://') && !url.startsWith('https://'))
       finalUrl = `https://${url}`;
 
     const state = contentState.createEntity(ENTITY_TYPE.LINK, 'MUTABLE', {
