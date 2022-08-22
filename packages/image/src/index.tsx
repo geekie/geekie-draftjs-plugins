@@ -25,6 +25,8 @@ export type ImageEditorPlugin = EditorPlugin & {
   };
 };
 
+const ACCEPTED_MIMES = ['image/png', 'image/jpeg', 'image/gif'];
+
 const createSetResizeData =
   (
     contentBlock: ContentBlock,
@@ -91,6 +93,22 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
       }
 
       return null;
+    },
+    handlePastedFiles(e, editor) {
+      const editorState = editor.getEditorState();
+      if (e.length !== 1) return;
+      const image = e[0];
+      if (ACCEPTED_MIMES.indexOf(image.type) < 0) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const url = event.target.result;
+        const newEditorState = addImage(editorState, url, {
+          width: 500,
+          height: 500
+        });
+        editor.setEditorState(newEditorState);
+      };
+      reader.readAsDataURL(image);
     },
     addImage,
     control,
