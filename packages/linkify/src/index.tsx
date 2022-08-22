@@ -3,17 +3,26 @@ import source from './source/source';
 import decorator from './decorator/decorator';
 import LinkIcon from './linkIcon';
 
-//todo tipar
-export default (config: any) => {
-  return {
+type LinkPlugin = {
+  entityType: {
+    icon?: any;
+    type: string;
+    schemes?: Array<string>;
+    attributes?: Array<string>;
+    decorator?: any;
+    source: any;
+    onPaste?: any;
+  };
+};
+
+export default () : LinkPlugin => ({
     entityType: {
       icon: LinkIcon,
       //onPaste: onPaste,
       source,
       decorator,
-      attributes: ['url'],
-      schemes: ['http:', 'https:'],
-      type: ENTITY_TYPE.LINK,
-    },
-  };
-};
+      attributes: ["url"],
+      schemes: ["http:", "https:"],
+      type: ENTITY_TYPE.LINK
+    }
+  });
