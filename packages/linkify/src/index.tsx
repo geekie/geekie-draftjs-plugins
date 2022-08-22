@@ -1,10 +1,11 @@
 import { ENTITY_TYPE } from "draftail";
 import source from "./source/source";
 import decorator from "./decorator/decorator";
+import LinkIcon from "./linkIcon";
 
 type LinkPlugin = {
   entityType: {
-    icon?: string;
+    icon?: JSX.Element;
     type: string;
     schemes?: Array<string>;
     attributes?: Array<string>;
@@ -16,6 +17,7 @@ type LinkPlugin = {
 
 export default () : LinkPlugin => ({
     entityType: {
+      icon: LinkIcon,
       source,
       decorator,
       attributes: ["url"],
