@@ -2,9 +2,19 @@ import { ENTITY_TYPE } from "draftail";
 import source from "./source/source";
 import decorator from "./decorator/decorator";
 
-//todo tipar
-export default (config:any) => {
-  return {
+type LinkPlugin = {
+  entityType: {
+    icon?: string;
+    type: string;
+    schemes?: Array<string>;
+    attributes?: Array<string>;
+    decorator?: any;
+    source: any;
+    onPaste?: any;
+  };
+};
+
+export default () : LinkPlugin => ({
     entityType: {
       //icon: "#icon-link",
       //onPaste: onPaste,
@@ -14,5 +24,4 @@ export default (config:any) => {
       schemes: ["http:", "https:"],
       type: ENTITY_TYPE.LINK
     }
-  };
-};
+  });

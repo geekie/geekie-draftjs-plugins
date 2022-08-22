@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, CSSProperties } from "react";
 import { ENTITY_TYPE } from "draftail";
 import { Modifier, EditorState, SelectionState, EditorChangeType } from "draft-js";
+import "./source.css";
 
 type State = {
   url: string;
@@ -70,43 +71,92 @@ class LinkSource extends Component<any, State> {
   render() : any {
     const { textDirectionality } = this.props;
     const { url, content } = this.state;
+    const styleForm : CSSProperties = {
+          pointerEvents: "all",
+          border: "1px solid #F1F1F1",
+          boxShadow: "2px 3px 8px rgba(0, 0, 0, 0.3)",
+          fontFamily: "Lato, Arial",
+          width: 276,
+          textAlign: "center",
+    };
+    const styleLabel : CSSProperties = {
+          display: "block",
+          fontWeight: 700,
+          fontFamily: "Lato, Arial",
+          fontSize:14,
+          lineHeight:"17px",
+          marginTop: "15px",
+          marginLeft: "16px",
+          textAlign: "left",
+    };
+    const styleInput : CSSProperties = {
+          display: "block",
+          marginTop: "6px",
+          border: "1px solid #D3D7DE",
+          borderRadius: "4px",
+          width:244,
+          height:32,
+          marginLeft: "16px",
+    };
+    const styleButton : CSSProperties = {
+        display: "inline-block",
+        width: 74,
+        height: 30,
+        margin: "10px",
+        backgroundColor: "#FFFFFF",
+        border: "1px solid #F1F1F1",
+    };
+
+      
     return (
       <form
         dir={textDirectionality === "RTL" ? "rtl" : undefined}
         className="LinkSource"
         onSubmit={this.onConfirm}
-        style={{pointerEvents: "all"}}
+        style={styleForm}
       >
         
-        <label className="form-field-content">
-          <span className="form-field__label">Conteúdo: </span>
-          <input
-            ref={(inputContentRef) => {
-              this.inputContentRef = inputContentRef;
-            }}
-            type="text"
-            onChange={this.onChangeContent}
-            value={content}
-            placeholder="Conteúdo"
-          />
-
+        <label 
+          className={"form-field-content"} 
+          style={styleLabel} 
+          htmlFor={"geekie-link-id-content"} >
+          Texto
         </label>
+        <input
+          ref={(inputContentRef) => {
+            this.inputContentRef = inputContentRef;
+          }}
+          type="text"
+          onChange={this.onChangeContent}
+          value={content}
+          placeholder="Conteúdo"
+          id="geekie-link-id-content"
+          style={styleInput}
+        />
 
-        <label className="form-field-url">
-          <span className="form-field__label">URL: </span>
-          <input
-            ref={(inputUrlRef) => {
-              this.inputUrlRef = inputUrlRef;
-            }}
-            type="text"
-            onChange={this.onChangeURL}
-            value={url}
-            placeholder="www.example.com"
-          />
+        
 
+        <label 
+          className={"form-field-url"} 
+          style={styleLabel} 
+          htmlFor={"geekie-link-id-url"} >
+          Link
         </label>
+        <input
+          ref={(inputUrlRef) => {
+            this.inputUrlRef = inputUrlRef;
+          }}
+          type="text"
+          onChange={this.onChangeURL}
+          value={url}
+          placeholder="www.example.com"
+          id="geekie-link-id-url"
+          style={styleInput}
+        />
 
-        <button type="submit">Save</button>
+
+        <button type="submit" style = {styleButton}>Ok</button>
+        <button style = {styleButton}>Cancelar</button>
       </form>
     );
   }
