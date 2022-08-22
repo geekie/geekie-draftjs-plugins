@@ -5,7 +5,7 @@ import LinkIcon from "./linkIcon";
 
 type LinkPlugin = {
   entityType: {
-    icon?: any;
+    icon?: JSX.Element;
     type: string;
     schemes?: Array<string>;
     attributes?: Array<string>;
