@@ -15,14 +15,14 @@ type LinkPlugin = {
   };
 };
 
-export default () : LinkPlugin => ({
-    entityType: {
-      icon: LinkIcon,
-      //onPaste: onPaste,
-      source,
-      decorator,
-      attributes: ["url"],
-      schemes: ["http:", "https:"],
-      type: ENTITY_TYPE.LINK
-    }
-  });
+export default (): LinkPlugin => ({
+  entityType: {
+    icon: LinkIcon,
+    //onPaste: onPaste,
+    source,
+    decorator,
+    attributes: ['url'],
+    schemes: ['http:', 'https:'],
+    type: ENTITY_TYPE.LINK,
+  },
+});
