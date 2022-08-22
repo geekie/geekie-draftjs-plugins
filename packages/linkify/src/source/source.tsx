@@ -28,13 +28,18 @@ class LinkSource extends Component<any, State> {
       state.url = data.url;
       state.content = selectionText;
     }
-
     this.state = state;
 
     this.onRequestClose = this.onRequestClose.bind(this);
     this.onConfirm = this.onConfirm.bind(this);
+    this.onCancel = this.onCancel.bind(this);
     this.onChangeURL = this.onChangeURL.bind(this);
     this.onChangeContent = this.onChangeContent.bind(this);
+  }
+
+  onCancel(): void {
+    const { editorState, onComplete } = this.props;
+    onComplete(editorState);
   }
 
   onConfirm(e: React.FormEvent<HTMLFormElement>): void {
@@ -73,8 +78,10 @@ class LinkSource extends Component<any, State> {
       border: '1px solid #F1F1F1',
       boxShadow: '2px 3px 8px rgba(0, 0, 0, 0.3)',
       fontFamily: 'Lato, Arial',
-      width: 276,
+      width: 280,
       textAlign: 'center',
+      zIndex: 99,
+      margin: 'auto',
     };
     const styleLabel: CSSProperties = {
       display: 'block',
@@ -84,6 +91,7 @@ class LinkSource extends Component<any, State> {
       lineHeight: '17px',
       marginTop: '15px',
       marginLeft: '16px',
+      marginRight: '16px',
       textAlign: 'left',
     };
     const styleInput: CSSProperties = {
@@ -125,7 +133,6 @@ class LinkSource extends Component<any, State> {
           type="text"
           onChange={this.onChangeContent}
           value={content}
-          placeholder="Conteúdo"
           id="geekie-link-id-content"
           style={styleInput}
         />
@@ -152,7 +159,7 @@ class LinkSource extends Component<any, State> {
         <button type="submit" style={styleButton}>
           Ok
         </button>
-        <button style={styleButton}>Cancelar</button>
+        <button type="button" onClick={this.onCancel} style={styleButton}>Cancelar</button>
       </form>
     );
   }
