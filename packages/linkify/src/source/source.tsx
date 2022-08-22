@@ -1,7 +1,6 @@
 import React, { Component, CSSProperties } from "react";
 import { ENTITY_TYPE } from "draftail";
 import { Modifier, EditorState, SelectionState, EditorChangeType } from "draft-js";
-import "./source.css";
 
 type State = {
   url: string;
