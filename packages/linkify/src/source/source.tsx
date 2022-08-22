@@ -1,169 +1,140 @@
-import React, { Component, CSSProperties } from "react";
-import { ENTITY_TYPE } from "draftail";
-import { Modifier, EditorState, SelectionState, EditorChangeType } from "draft-js";
+import React, { CSSProperties, useRef, useState } from 'react';
+import { ENTITY_TYPE } from 'draftail';
+import {
+  Modifier,
+  EditorState,
+  SelectionState,
+  EditorChangeType,
+} from 'draft-js';
 
-type State = {
-  url: string;
-  content: string;
+const styleForm: CSSProperties = {
+  pointerEvents: 'all',
+  border: '1px solid #F1F1F1',
+  boxShadow: '2px 3px 8px rgba(0, 0, 0, 0.3)',
+  fontFamily: 'Lato, Arial',
+  width: 276,
+  textAlign: 'center',
+};
+const styleLabel: CSSProperties = {
+  display: 'block',
+  fontWeight: 700,
+  fontFamily: 'Lato, Arial',
+  fontSize: 14,
+  lineHeight: '17px',
+  marginTop: '15px',
+  marginLeft: '16px',
+  textAlign: 'left',
+};
+const styleInput: CSSProperties = {
+  display: 'block',
+  marginTop: '6px',
+  border: '1px solid #D3D7DE',
+  borderRadius: '4px',
+  width: 244,
+  height: 32,
+  marginLeft: '16px',
+};
+const styleButton: CSSProperties = {
+  display: 'inline-block',
+  width: 74,
+  height: 30,
+  margin: '10px',
+  backgroundColor: '#FFFFFF',
+  border: '1px solid #F1F1F1',
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-class LinkSource extends Component<any, State> {
-  inputContentRef?: HTMLInputElement | null;
-  inputUrlRef?: HTMLInputElement | null;
+type Props = {
+  entity: {
+    getData: () => string;
+  };
+  editorState: EditorState;
+  onComplete: (e: EditorState) => void;
+  onClose: () => void;
+  textDirectionality: string;
+}
 
-  constructor(props: any) {
-    super(props);
+const LinkSource = (props: Props): JSX.Element => {
+  const { entity, editorState, onComplete, onClose, textDirectionality } = props;
 
-    const { entity, editorState } = this.props;
-    const selectionText = getSelectionText(editorState);
+  const inputContentRef = useRef<HTMLInputElement>(null);
+  const inputUrlRef = useRef<HTMLInputElement>(null);
 
-    const state = {
-      url: '',
-      content: selectionText,
-    };
+  const [url, setUrl] = useState(entity ? entity.getData() : '');
+  const [content, setContent] = useState(getSelectionText(editorState));
 
-    if (entity) {
-      const data = entity.getData();
-      state.url = data.url;
-      state.content = selectionText;
-    }
-    this.state = state;
-
-    this.onRequestClose = this.onRequestClose.bind(this);
-    this.onConfirm = this.onConfirm.bind(this);
-    this.onCancel = this.onCancel.bind(this);
-    this.onChangeURL = this.onChangeURL.bind(this);
-    this.onChangeContent = this.onChangeContent.bind(this);
-  }
-
-  onCancel(): void {
-    const { editorState, onComplete } = this.props;
-    onComplete(editorState);
-  }
-
-  onConfirm(e: React.FormEvent<HTMLFormElement>): void {
-    const { editorState, onComplete } = this.props;
-    const { url, content } = this.state;
+  const onConfirm = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const newEditorState = editLinkEntity(content, url, editorState);
     onComplete(newEditorState);
-  }
+  };
 
-  onRequestClose(e: React.SyntheticEvent): void {
-    const { onClose } = this.props;
+  const onRequestClose = (e: React.SyntheticEvent): void => {
     e.preventDefault();
     onClose();
-  }
+  };
 
-  onChangeURL(e: React.ChangeEvent<HTMLInputElement>): void {
+  const onChangeURL = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target instanceof HTMLInputElement) {
-      const url = e.target.value;
-      this.setState({ url });
+      setUrl(e.target.value);
     }
-  }
+  };
 
-  onChangeContent(e: React.ChangeEvent<HTMLInputElement>): void {
+  const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target instanceof HTMLInputElement) {
-      const content = e.target.value;
-      this.setState({ content });
+      setContent(e.target.value);
     }
-  }
-  //todo tipar
-  render(): any {
-    const { textDirectionality } = this.props;
-    const { url, content } = this.state;
-    const styleForm: CSSProperties = {
-      pointerEvents: 'all',
-      border: '1px solid #F1F1F1',
-      boxShadow: '2px 3px 8px rgba(0, 0, 0, 0.3)',
-      fontFamily: 'Lato, Arial',
-      width: 280,
-      textAlign: 'center',
-      zIndex: 99,
-      margin: 'auto',
-    };
-    const styleLabel: CSSProperties = {
-      display: 'block',
-      fontWeight: 700,
-      fontFamily: 'Lato, Arial',
-      fontSize: 14,
-      lineHeight: '17px',
-      marginTop: '15px',
-      marginLeft: '16px',
-      marginRight: '16px',
-      textAlign: 'left',
-    };
-    const styleInput: CSSProperties = {
-      display: 'block',
-      marginTop: '6px',
-      border: '1px solid #D3D7DE',
-      borderRadius: '4px',
-      width: 244,
-      height: 32,
-      marginLeft: '16px',
-    };
-    const styleButton: CSSProperties = {
-      display: 'inline-block',
-      width: 74,
-      height: 30,
-      margin: '10px',
-      backgroundColor: '#FFFFFF',
-      border: '1px solid #F1F1F1',
-    };
+  };
 
-    return (
-      <form
-        dir={textDirectionality === 'RTL' ? 'rtl' : undefined}
-        className="LinkSource"
-        onSubmit={this.onConfirm}
-        style={styleForm}
+  return (
+    <form
+      dir={textDirectionality === 'RTL' ? 'rtl' : undefined}
+      className="LinkSource"
+      onSubmit={onConfirm}
+      style={styleForm}
+    >
+      <label
+        className={'form-field-content'}
+        style={styleLabel}
+        htmlFor={'geekie-link-id-content'}
       >
-        <label
-          className={'form-field-content'}
-          style={styleLabel}
-          htmlFor={'geekie-link-id-content'}
-        >
-          Texto
-        </label>
-        <input
-          ref={(inputContentRef) => {
-            this.inputContentRef = inputContentRef;
-          }}
-          type="text"
-          onChange={this.onChangeContent}
-          value={content}
-          id="geekie-link-id-content"
-          style={styleInput}
-        />
+        Texto
+      </label>
+      <input
+        ref={inputContentRef}
+        type="text"
+        onChange={onChangeContent}
+        value={content}
+        placeholder="Conteúdo"
+        id="geekie-link-id-content"
+        style={styleInput}
+      />
 
-        <label
-          className={'form-field-url'}
-          style={styleLabel}
-          htmlFor={'geekie-link-id-url'}
-        >
-          Link
-        </label>
-        <input
-          ref={(inputUrlRef) => {
-            this.inputUrlRef = inputUrlRef;
-          }}
-          type="text"
-          onChange={this.onChangeURL}
-          value={url}
-          placeholder="https://"
-          id="geekie-link-id-url"
-          style={styleInput}
-        />
+      <label
+        className={'form-field-url'}
+        style={styleLabel}
+        htmlFor={'geekie-link-id-url'}
+      >
+        Link
+      </label>
+      <input
+        ref={inputUrlRef}
+        type="text"
+        onChange={onChangeURL}
+        value={url}
+        placeholder="https://"
+        id="geekie-link-id-url"
+        style={styleInput}
+      />
 
-        <button type="submit" style={styleButton}>
-          Ok
-        </button>
-        <button type="button" onClick={this.onCancel} style={styleButton}>Cancelar</button>
-      </form>
-    );
-  }
-}
+      <button type="submit" style={styleButton}>
+        Ok
+      </button>
+      <button style={styleButton} onClick={onRequestClose}>
+        Cancelar
+      </button>
+    </form>
+  );
+};
 
 function editLinkEntity(
   content: string,
@@ -200,9 +171,11 @@ function addLink(
     if (!url.startsWith('http://') && !url.startsWith('https://'))
       finalUrl = `https://${url}`;
 
-    const state = contentState.createEntity(ENTITY_TYPE.LINK, 'MUTABLE', {
-      url: finalUrl,
-    });
+    const state = contentState.createEntity(
+      ENTITY_TYPE.LINK,
+      'MUTABLE',
+      finalUrl
+    );
 
     const entityKey = contentState.getLastCreatedEntityKey();
 

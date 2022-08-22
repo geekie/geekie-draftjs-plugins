@@ -1,38 +1,25 @@
-import React, {CSSProperties} from "react";
-import { EditorState, Modifier, RichUtils, ContentState } from "draft-js";
-
+import React, { CSSProperties } from "react";
 
 type LinkDecoratorProps = {
-  entityKey: any,
-  contentState: ContentState,
-  children: any,
-  onEdit: () => void,
-  onRemove: () => void,
-  textDirectionality: any,
+  entityKey: string,
+  children: JSX.Element,
+  onEdit: (key: string) => void,
 };
+
+const style : CSSProperties = {
+  display: "inline-block",
+  color: '#0F6DFF',
+  textDecoration: 'underline'
+}
 
 const LinkDecorator = ({
   entityKey,
-  contentState,
   children,
   onEdit,
-  onRemove,
-  textDirectionality
-}: LinkDecoratorProps) : JSX.Element => {
-  const { url, linkType } = contentState.getEntity(entityKey).getData();
-  const style : CSSProperties = {
-     display: "inline-block",
-  } 
-
-  return (
-    <div style={style}>
-      <a target={"_blank"} href={url} onClick={onEdit.bind(null, entityKey)} rel="noreferrer">
+}: LinkDecoratorProps) : JSX.Element => (
+    <span style={style} onClick={() => onEdit(entityKey)}>
         {children}
-      </a>
-    </div>
+    </span>
   );
-};
 
-//<button onClick={onEdit.bind(null, entityKey)}> Editar </button>
-//
 export default LinkDecorator;

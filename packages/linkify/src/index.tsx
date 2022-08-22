@@ -18,7 +18,6 @@ type LinkPlugin = {
 export default () : LinkPlugin => ({
     entityType: {
       icon: LinkIcon,
-      //onPaste: onPaste,
       source,
       decorator,
       attributes: ["url"],
