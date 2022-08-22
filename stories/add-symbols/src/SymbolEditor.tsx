@@ -1,14 +1,17 @@
 import React, { ReactElement } from 'react';
 import { DraftailEditor as Editor, INLINE_STYLE } from 'draftail';
+import 'draftail/dist/draftail.css';
 import createSymbolPlugin, {
   registerInsertSymbolCallback,
-} from '@draft-js-plugins/symbol';
-import 'draftail/dist/draftail.css';
+} from '../../../packages/symbol/src';
 
 const symbolPlugin = createSymbolPlugin();
 const plugins = [symbolPlugin];
 
-registerInsertSymbolCallback((symbol) => console.log(symbol));
+registerInsertSymbolCallback((symbol) => {
+  // eslint-disable-next-line no-console
+  console.log(symbol);
+});
 
 const SimpleImageEditor = (): ReactElement => (
   <div>
