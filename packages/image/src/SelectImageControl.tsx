@@ -5,6 +5,7 @@ import addImage from './modifiers/addImage';
 import { getUploadImage, pluginConfig } from './register';
 import { SelectImageIcon } from './SelectImageIcon';
 import { defaultTheme } from './theme';
+import { getHeightAndWidthFromDataUrl, getAcceptableSize, isValidImageType, isValidImageSize } from './utils';
 
 interface DraftToolbarControlProps {
   getEditorState: () => EditorState;
@@ -12,20 +13,6 @@ interface DraftToolbarControlProps {
 }
 
 export type SelectImageControl = React.ComponentType<DraftToolbarControlProps>;
-
-const getHeightAndWidthFromDataUrl = (
-  dataURL: string
-): Promise<{ width: number; height: number }> =>
-  new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => {
-      resolve({
-        height: img.height,
-        width: img.width,
-      });
-    };
-    img.src = dataURL;
-  });
 
 export const control: React.ComponentType<DraftToolbarControlProps> = (
   props
@@ -44,64 +31,33 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
   };
 
   const handleSubmit = async (): Promise<void> => {
-    if (candidateImage) {
-      const editorState = getEditorState();
-      const { width, height } = await getHeightAndWidthFromDataUrl(
-        candidateImage
-      );
-
-      // Limit image size by 500px
-      let limitWidth = width;
-      let limitHeight = height;
-      const ratio = width / height;
-      if (ratio > 1) {
-        if (width > 500) {
-          limitWidth = 500;
-          limitHeight = limitWidth / ratio;
-        }
-      } else {
-        if (height > 500) {
-          limitHeight = 500;
-          limitWidth = limitHeight * ratio;
-        }
-      }
-
-      const newEditorState = addImage(editorState, candidateImage, {
-        width: limitWidth,
-        height: limitHeight,
-      });
-      onChange(newEditorState);
-
-      handleCancel();
-    }
+    if (!candidateImage) return;
+    const editorState = getEditorState();
+    const originalSize = await getHeightAndWidthFromDataUrl(candidateImage);
+    const acceptableSize = getAcceptableSize(originalSize);
+    const newEditorState = addImage(editorState, candidateImage, acceptableSize);
+    onChange(newEditorState);
+    handleCancel();
   };
 
   useClickAway(panelRef, (event) => {
     event.stopPropagation();
-
     handleCancel();
   });
 
   const handleSelectFile = (file: File): void => {
-    // Check file type is image or not
-    const isImage = file && file.type.split('/')[0] === 'image';
-
-    if (isImage) {
-      // Check file size limitation
-      if (file.size > pluginConfig.fileLimitation * 1024 * 1024) {
-        setErrorMessage(
-          `Insira uma imagem menor que ${pluginConfig.fileLimitation}MB`
-        );
-        return;
-      }
-      setErrorMessage(null);
-
-      getUploadImage()(file).then((imageUrl) => {
-        if (imageUrl) {
-          setCandidateImage(imageUrl);
-        }
-      });
+    if (!isValidImageType(file)) return;
+    if (!isValidImageSize(file)) {
+      setErrorMessage(
+        `Insira uma imagem menor que ${pluginConfig.fileLimitation}MB`
+      );
+      return;
     }
+    setErrorMessage(null);
+    getUploadImage()(file).then((imageUrl) => {
+      if (!imageUrl) return;
+      setCandidateImage(imageUrl);
+    });
   };
 
   const handleImageChange: ChangeEventHandler<HTMLInputElement> = (e) => {

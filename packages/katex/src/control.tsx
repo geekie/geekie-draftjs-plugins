@@ -37,7 +37,7 @@ const InsertKatexBlockButton = (props: Props): JSX.Element => {
 
   return (
     <span>
-      <button className="Draftail-ToolbarButton">
+      <button className="GeekieKatex-ToolbarButton Draftail-ToolbarButton">
         <span className="Draftail-ToolbarButton__label">
           <ButtonIcon onClick={onClick} />
         </span>

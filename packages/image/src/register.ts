@@ -20,7 +20,7 @@ export const registerUploadImageTask: (
 
 export const pluginConfig = {
   // file size limitation in unit MB
-  fileLimitation: 100,
+  fileLimitation: 3,
 };
 
 export const setFileLimitation = (limitation: number): void => {
