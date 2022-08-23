@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 
-type LinkDecoratorProps = {
+export type DecoratorProps = {
   entityKey: string,
   children: JSX.Element,
   onEdit: (key: string) => void,
@@ -16,7 +16,7 @@ const LinkDecorator = ({
   entityKey,
   children,
   onEdit,
-}: LinkDecoratorProps) : JSX.Element => (
+}: DecoratorProps) : JSX.Element => (
     <span style={style} onClick={() => onEdit(entityKey)}>
         {children}
     </span>

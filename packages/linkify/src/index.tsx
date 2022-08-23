@@ -1,6 +1,6 @@
 import { ENTITY_TYPE } from "draftail";
-import source from "./source/source";
-import decorator from "./decorator/decorator";
+import source, {SourceProps} from "./source/source";
+import decorator, {DecoratorProps} from "./decorator/decorator";
 import LinkIcon from "./linkIcon";
 
 type LinkPlugin = {
@@ -9,8 +9,8 @@ type LinkPlugin = {
     type: string;
     schemes?: Array<string>;
     attributes?: Array<string>;
-    decorator?: any;
-    source: any;
+    decorator?: (props:DecoratorProps) => JSX.Element;
+    source: (props:SourceProps) => JSX.Element;
     onPaste?: any;
   };
 };

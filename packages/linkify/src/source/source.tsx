@@ -11,7 +11,7 @@ import {
 import { defaultTheme } from '../theme';
 
 
-type Props = {
+export type SourceProps = {
   entity: {
     getData: () => string;
   };
@@ -21,7 +21,7 @@ type Props = {
   textDirectionality: string;
 }
 
-const LinkSource = (props: Props): JSX.Element => {
+const LinkSource = (props: SourceProps): JSX.Element => {
   const { entity, editorState, onComplete, onClose, textDirectionality } = props;
 
   const inputContentRef = useRef<HTMLInputElement>(null);
