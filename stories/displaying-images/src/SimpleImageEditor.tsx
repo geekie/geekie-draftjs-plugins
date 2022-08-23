@@ -43,19 +43,19 @@ const SimpleImageEditor = (): ReactElement => {
   const [editorState, setEditorState] = useState(
     EditorState.createWithContent(contentState)
   );
+  const [htmlOutput, setHtmlOutput] = useState('');
 
   return (
     <div>
+      <pre>{htmlOutput}</pre>
       <Editor
-        readOnly
         topTool
         editorState={editorState}
         controls={[imagePlugin.control]}
         // eslint-disable-next-line no-shadow
         onChange={(editorState: EditorState) => {
           setEditorState(editorState);
-          // eslint-disable-next-line no-console
-          console.log('editorState as html: ', convertToHTML(editorState));
+          setHtmlOutput(convertToHTML(editorState));
         }}
         inlineStyles={[
           { type: INLINE_STYLE.BOLD },
