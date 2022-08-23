@@ -1,5 +1,6 @@
 import React, { CSSProperties, useRef, useState } from 'react';
 import { ENTITY_TYPE } from 'draftail';
+import Draggable from 'react-draggable';
 import {
   Modifier,
   EditorState,
@@ -7,41 +8,8 @@ import {
   EditorChangeType,
 } from 'draft-js';
 
-const styleForm: CSSProperties = {
-  pointerEvents: 'all',
-  border: '1px solid #F1F1F1',
-  boxShadow: '2px 3px 8px rgba(0, 0, 0, 0.3)',
-  fontFamily: 'Lato, Arial',
-  width: 276,
-  textAlign: 'center',
-};
-const styleLabel: CSSProperties = {
-  display: 'block',
-  fontWeight: 700,
-  fontFamily: 'Lato, Arial',
-  fontSize: 14,
-  lineHeight: '17px',
-  marginTop: '15px',
-  marginLeft: '16px',
-  textAlign: 'left',
-};
-const styleInput: CSSProperties = {
-  display: 'block',
-  marginTop: '6px',
-  border: '1px solid #D3D7DE',
-  borderRadius: '4px',
-  width: 244,
-  height: 32,
-  marginLeft: '16px',
-};
-const styleButton: CSSProperties = {
-  display: 'inline-block',
-  width: 74,
-  height: 30,
-  margin: '10px',
-  backgroundColor: '#FFFFFF',
-  border: '1px solid #F1F1F1',
-};
+import { defaultTheme } from '../theme';
+
 
 type Props = {
   entity: {
@@ -86,53 +54,51 @@ const LinkSource = (props: Props): JSX.Element => {
   };
 
   return (
-    <form
-      dir={textDirectionality === 'RTL' ? 'rtl' : undefined}
-      className="LinkSource"
-      onSubmit={onConfirm}
-      style={styleForm}
-    >
-      <label
-        className={'form-field-content'}
-        style={styleLabel}
-        htmlFor={'geekie-link-id-content'}
+    <Draggable>
+      <form
+        dir={textDirectionality === 'RTL' ? 'rtl' : undefined}
+        className={`LinkSource ${defaultTheme.styleForm}`}
+        onSubmit={onConfirm}
       >
-        Texto
-      </label>
-      <input
-        ref={inputContentRef}
-        type="text"
-        onChange={onChangeContent}
-        value={content}
-        placeholder="Conteúdo"
-        id="geekie-link-id-content"
-        style={styleInput}
-      />
+        <label
+          className={`form-field-url ${defaultTheme.styleLabel}`}
+          htmlFor={'geekie-link-id-content'}
+        >
+          Texto
+        </label>
+        <input
+          ref={inputContentRef}
+          type="text"
+          onChange={onChangeContent}
+          value={content}
+          id="geekie-link-id-content"
+          className={`${defaultTheme.styleInput}`}
+        />
 
-      <label
-        className={'form-field-url'}
-        style={styleLabel}
-        htmlFor={'geekie-link-id-url'}
-      >
-        Link
-      </label>
-      <input
-        ref={inputUrlRef}
-        type="text"
-        onChange={onChangeURL}
-        value={url}
-        placeholder="https://"
-        id="geekie-link-id-url"
-        style={styleInput}
-      />
+        <label
+          className={`form-field-url ${defaultTheme.styleLabel}`}
+          
+          htmlFor={'geekie-link-id-url'}
+        >
+          Link
+        </label>
+        <input
+          ref={inputUrlRef}
+          type="text"
+          onChange={onChangeURL}
+          value={url}
+          id="geekie-link-id-url"
+          className={`${defaultTheme.styleInput}`}
+        />
 
-      <button type="submit" style={styleButton}>
-        Ok
-      </button>
-      <button style={styleButton} onClick={onRequestClose}>
-        Cancelar
-      </button>
-    </form>
+        <button type="submit" className={`${defaultTheme.styleButton}`}>
+          Ok
+        </button>
+        <button className={`${defaultTheme.styleButton}`} onClick={onRequestClose}>
+          Cancelar
+        </button>
+      </form>
+    </Draggable>
   );
 };
 
