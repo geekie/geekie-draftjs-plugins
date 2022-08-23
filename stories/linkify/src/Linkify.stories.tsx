@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import { Story, Meta } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 import { DraftailEditor } from 'draftail';
-import createLinkifyPlugin, {
-  linkEntityToHTML
-} from '../../../packages/linkify/src';
 import 'draftail/dist/draftail.css';
-
+import React, { useState } from 'react';
 import { ContentState, convertToRaw, EditorState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
+
+import createLinkifyPlugin from '../../../packages/linkify/src';
 
 function convertToHTML(editorState: EditorState): string {
   return draftToHtml(
@@ -33,26 +31,27 @@ const html = `
 <p></p>
 `;
 
-
 export const Default: Story = () => {
-  const contentState = ContentState.createFromBlockArray(
-    htmlToDraft(html)
-  );
+  const contentState = ContentState.createFromBlockArray(htmlToDraft(html));
   const [editorState, setEditorState] = useState(
     EditorState.createWithContent(contentState)
   );
+  const [htmlOutput, setHtmlOutput] = useState('');
 
   const handleEditorChange = (e: EditorState): void => {
     setEditorState(e);
-    console.log(convertToHTML(e));
+    setHtmlOutput(convertToHTML(e));
   };
 
   return (
-    <DraftailEditor
-      editorState={editorState}
-      entityTypes={[linkifyPlugin.entityType]}
-      plugins={[linkifyPlugin]}
-      onChange={handleEditorChange}
-    />
+    <div>
+      <pre>{htmlOutput}</pre>
+      <DraftailEditor
+        editorState={editorState}
+        entityTypes={[linkifyPlugin.entityType]}
+        plugins={[linkifyPlugin]}
+        onChange={handleEditorChange}
+      />
+    </div>
   );
 };
