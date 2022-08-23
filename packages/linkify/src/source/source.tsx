@@ -1,4 +1,4 @@
-import React, { CSSProperties, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { ENTITY_TYPE } from 'draftail';
 import Draggable from 'react-draggable';
 import {
