@@ -10,44 +10,48 @@ import {
 
 import { defaultTheme } from '../theme';
 
-
 export type SourceProps = {
   entity: {
-    getData: () => string;
+    getData: () => {
+      url: string;
+    };
   };
   editorState: EditorState;
   onComplete: (e: EditorState) => void;
   onClose: () => void;
   textDirectionality: string;
-}
+};
 
 const LinkSource = (props: SourceProps): JSX.Element => {
-  const { entity, editorState, onComplete, onClose, textDirectionality } = props;
+  const { entity, editorState, onComplete, onClose, textDirectionality } =
+    props;
 
   const inputContentRef = useRef<HTMLInputElement>(null);
   const inputUrlRef = useRef<HTMLInputElement>(null);
 
-  const [url, setUrl] = useState(entity ? entity.getData() : '');
+  const [url, setUrl] = useState(entity ? entity.getData().url : '');
   const [content, setContent] = useState(getSelectionText(editorState));
 
-  const onConfirm = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleConfirm = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const newEditorState = editLinkEntity(content, url, editorState);
     onComplete(newEditorState);
   };
 
-  const onRequestClose = (e: React.SyntheticEvent): void => {
+  const handleRequestClose = (e: React.SyntheticEvent): void => {
     e.preventDefault();
     onClose();
   };
 
-  const onChangeURL = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChangeURL = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target instanceof HTMLInputElement) {
       setUrl(e.target.value);
     }
   };
 
-  const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChangeContent = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     if (e.target instanceof HTMLInputElement) {
       setContent(e.target.value);
     }
@@ -58,7 +62,7 @@ const LinkSource = (props: SourceProps): JSX.Element => {
       <form
         dir={textDirectionality === 'RTL' ? 'rtl' : undefined}
         className={`LinkSource ${defaultTheme.styleForm}`}
-        onSubmit={onConfirm}
+        onSubmit={handleConfirm}
       >
         <label
           className={`form-field-url ${defaultTheme.styleLabel}`}
@@ -69,7 +73,7 @@ const LinkSource = (props: SourceProps): JSX.Element => {
         <input
           ref={inputContentRef}
           type="text"
-          onChange={onChangeContent}
+          onChange={handleChangeContent}
           value={content}
           id="geekie-link-id-content"
           className={`${defaultTheme.styleInput}`}
@@ -77,7 +81,6 @@ const LinkSource = (props: SourceProps): JSX.Element => {
 
         <label
           className={`form-field-url ${defaultTheme.styleLabel}`}
-          
           htmlFor={'geekie-link-id-url'}
         >
           Link
@@ -85,7 +88,7 @@ const LinkSource = (props: SourceProps): JSX.Element => {
         <input
           ref={inputUrlRef}
           type="text"
-          onChange={onChangeURL}
+          onChange={handleChangeURL}
           value={url}
           id="geekie-link-id-url"
           className={`${defaultTheme.styleInput}`}
@@ -94,7 +97,10 @@ const LinkSource = (props: SourceProps): JSX.Element => {
         <button type="submit" className={`${defaultTheme.styleButton}`}>
           Ok
         </button>
-        <button className={`${defaultTheme.styleButton}`} onClick={onRequestClose}>
+        <button
+          className={`${defaultTheme.styleButton}`}
+          onClick={handleRequestClose}
+        >
           Cancelar
         </button>
       </form>
@@ -137,11 +143,10 @@ function addLink(
     if (!url.startsWith('http://') && !url.startsWith('https://'))
       finalUrl = `https://${url}`;
 
-    const state = contentState.createEntity(
-      ENTITY_TYPE.LINK,
-      'MUTABLE',
-      finalUrl
-    );
+    const state = contentState.createEntity(ENTITY_TYPE.LINK, 'MUTABLE', {
+      targetOption: '_blank',
+      url: finalUrl,
+    });
 
     const entityKey = contentState.getLastCreatedEntityKey();
 
