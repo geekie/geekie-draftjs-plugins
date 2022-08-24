@@ -12,6 +12,8 @@ import {
   isValidImageSize,
 } from './utils';
 
+const buttonTooltipText = 'Imagem';
+
 interface DraftToolbarControlProps {
   getEditorState: () => EditorState;
   onChange: (state: EditorState) => void;
@@ -190,8 +192,8 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
         className={`Draftail-ToolbarButton ${
           showFileDropPanel ? 'Draftail-ToolbarButton--active' : ''
         }`}
-        aria-label="Imagem"
-        data-draftail-balloon="Imagem"
+        aria-label={buttonTooltipText}
+        data-draftail-balloon={buttonTooltipText}
         onClick={() => {
           setShowFileDropPanel(!showFileDropPanel);
         }}
