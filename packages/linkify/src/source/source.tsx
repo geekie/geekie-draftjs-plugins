@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { ENTITY_TYPE } from 'draftail';
 import Draggable from 'react-draggable';
 import {
@@ -28,9 +28,11 @@ const LinkSource = (props: SourceProps): JSX.Element => {
 
   const inputContentRef = useRef<HTMLInputElement>(null);
   const inputUrlRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const [url, setUrl] = useState(entity ? entity.getData().url : '');
   const [content, setContent] = useState(getSelectionText(editorState));
+  const [clickedOutside, setClickedOutside] = useState(false);
 
   const handleConfirm = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -57,12 +59,29 @@ const LinkSource = (props: SourceProps): JSX.Element => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent): void => {
+      if (
+        formRef.current &&
+        !formRef.current.contains(event.target as HTMLElement)
+      ) {
+        if (clickedOutside) onClose();
+      }
+      setClickedOutside(true);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [formRef, clickedOutside]);
+
   return (
     <Draggable>
       <form
         dir={textDirectionality === 'RTL' ? 'rtl' : undefined}
         className={`GeekieLink-form ${defaultTheme.styleForm} ${defaultTheme.styleGlobal}`}
         onSubmit={handleConfirm}
+        ref={formRef}
       >
         <label
           className={`GeekieLink-label ${defaultTheme.styleLabel}`}
