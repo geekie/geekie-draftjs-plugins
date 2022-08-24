@@ -479,4 +479,4 @@ export const symbols: {
   ],
 };
 
-export const catetoriesOptions = Object.keys(symbols);
+export const categoriesOptions = Object.keys(symbols);

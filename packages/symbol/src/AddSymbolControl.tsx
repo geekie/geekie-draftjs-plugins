@@ -6,7 +6,7 @@ import Draggable from 'react-draggable';
 import addSymbol from './modifiers/addSymbol';
 import { AddSymbolIcon, CloseIcon } from './AddSymbolIcon';
 import { defaultTheme } from './theme';
-import { catetoriesOptions, symbols } from './constants';
+import { categoriesOptions, symbols } from './constants';
 
 const buttonTooltipText = 'Caracteres especiais';
 
@@ -47,7 +47,7 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
     getRecentlyUsedFromStorage()
   );
   const [currentCategory, setCurrentCategory] = useState(
-    recentlyUsedList.length > 0 ? 'Recentes' : catetoriesOptions[0]
+    recentlyUsedList.length > 0 ? 'Recentes' : categoriesOptions[0]
   );
 
   const handleCancel = (): void => {
@@ -105,7 +105,7 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
         <Dropdown
           className={`GeekieSymbol-AddSymbolDropdown ${defaultTheme.addSymbolDropdown}`}
           options={(recentlyUsedList.length > 0 ? ['Recentes'] : []).concat(
-            catetoriesOptions
+            categoriesOptions
           )}
           onChange={(option) => setCurrentCategory(option.value)}
           value={currentCategory}
