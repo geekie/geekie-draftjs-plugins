@@ -8,6 +8,8 @@ import { AddSymbolIcon, CloseIcon } from './AddSymbolIcon';
 import { defaultTheme } from './theme';
 import { catetoriesOptions, symbols } from './constants';
 
+const buttonTooltipText = 'Caracteres especiais';
+
 interface DraftToolbarControlProps {
   getEditorState: () => EditorState;
   onChange: (state: EditorState) => void;
@@ -146,6 +148,8 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
         className={`Draftail-ToolbarButton ${
           showSymbolPanel ? 'Draftail-ToolbarButton--active' : ''
         }`}
+        aria-label={buttonTooltipText}
+        data-draftail-balloon={buttonTooltipText}
         onClick={() => {
           setShowSymbolPanel(!showSymbolPanel);
         }}
