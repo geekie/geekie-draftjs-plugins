@@ -1,7 +1,8 @@
+import { DraftHandleValue } from 'draft-js';
 import { ENTITY_TYPE } from 'draftail';
-import source, { SourceProps } from './source/source';
 import decorator, { DecoratorProps } from './decorator/decorator';
 import LinkIcon from './linkIcon';
+import source, { SourceProps } from './source/source';
 
 type LinkPlugin = {
   entityType: {
@@ -11,7 +12,7 @@ type LinkPlugin = {
     attributes?: Array<string>;
     decorator?: (props: DecoratorProps) => JSX.Element;
     source: (props: SourceProps) => JSX.Element;
-    onPaste?: any;
+    onPaste?: (text: string, html?: string) => DraftHandleValue;
   };
 };
 
