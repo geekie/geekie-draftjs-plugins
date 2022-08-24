@@ -1,8 +1,8 @@
-import { EditorState } from "draft-js";
-import React from "react";
-import insertKatexBlock from "./modifiers/insertKatexBlock";
+import { EditorState } from 'draft-js';
+import React from 'react';
+import insertKatexBlock from './modifiers/insertKatexBlock';
 
-export const ButtonIcon = (props: {onClick: () => void}): JSX.Element => (
+export const ButtonIcon = (props: { onClick: () => void }): JSX.Element => (
   <svg
     width="18px"
     height="18px"
@@ -30,14 +30,16 @@ const InsertKatexBlockButton = (props: Props): JSX.Element => {
 
   const onClick = (): void => {
     const editorState = getEditorState();
-    onChange(
-      insertKatexBlock({ editorState })
-    );
+    onChange(insertKatexBlock({ editorState }));
   };
 
   return (
     <span>
-      <button className="GeekieKatex-ToolbarButton Draftail-ToolbarButton">
+      <button
+        className="GeekieKatex-ToolbarButton Draftail-ToolbarButton"
+        aria-label="Equações"
+        data-draftail-balloon="Equações"
+      >
         <span className="Draftail-ToolbarButton__label">
           <ButtonIcon onClick={onClick} />
         </span>

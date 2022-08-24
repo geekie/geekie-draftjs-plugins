@@ -146,6 +146,8 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
         className={`Draftail-ToolbarButton ${
           showSymbolPanel ? 'Draftail-ToolbarButton--active' : ''
         }`}
+        aria-label="Caracteres especiais"
+        data-draftail-balloon="Caracteres especiais"
         onClick={() => {
           setShowSymbolPanel(!showSymbolPanel);
         }}

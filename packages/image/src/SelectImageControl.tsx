@@ -5,7 +5,12 @@ import addImage from './modifiers/addImage';
 import { getUploadImage, pluginConfig } from './register';
 import { SelectImageIcon } from './SelectImageIcon';
 import { defaultTheme } from './theme';
-import { getHeightAndWidthFromDataUrl, getAcceptableSize, isValidImageType, isValidImageSize } from './utils';
+import {
+  getHeightAndWidthFromDataUrl,
+  getAcceptableSize,
+  isValidImageType,
+  isValidImageSize,
+} from './utils';
 
 interface DraftToolbarControlProps {
   getEditorState: () => EditorState;
@@ -35,7 +40,11 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
     const editorState = getEditorState();
     const originalSize = await getHeightAndWidthFromDataUrl(candidateImage);
     const acceptableSize = getAcceptableSize(originalSize);
-    const newEditorState = addImage(editorState, candidateImage, acceptableSize);
+    const newEditorState = addImage(
+      editorState,
+      candidateImage,
+      acceptableSize
+    );
     onChange(newEditorState);
     handleCancel();
   };
@@ -181,6 +190,8 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
         className={`Draftail-ToolbarButton ${
           showFileDropPanel ? 'Draftail-ToolbarButton--active' : ''
         }`}
+        aria-label="Imagem"
+        data-draftail-balloon="Imagem"
         onClick={() => {
           setShowFileDropPanel(!showFileDropPanel);
         }}
