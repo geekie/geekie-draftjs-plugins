@@ -61,11 +61,11 @@ const LinkSource = (props: SourceProps): JSX.Element => {
     <Draggable>
       <form
         dir={textDirectionality === 'RTL' ? 'rtl' : undefined}
-        className={`LinkSource ${defaultTheme.styleForm} ${defaultTheme.styleGlobal}`}
+        className={`GeekieLink-form ${defaultTheme.styleForm} ${defaultTheme.styleGlobal}`}
         onSubmit={handleConfirm}
       >
         <label
-          className={`form-field-url ${defaultTheme.styleLabel}`}
+          className={`GeekieLink-label ${defaultTheme.styleLabel}`}
           htmlFor={'geekie-link-id-content'}
         >
           Texto
@@ -76,11 +76,11 @@ const LinkSource = (props: SourceProps): JSX.Element => {
           onChange={handleChangeContent}
           value={content}
           id="geekie-link-id-content"
-          className={`${defaultTheme.styleInput}`}
+          className={`GeekieLink-input ${defaultTheme.styleInput}`}
         />
 
         <label
-          className={`form-field-url ${defaultTheme.styleLabel}`}
+          className={`GeekieLink-label form-field-url ${defaultTheme.styleLabel}`}
           htmlFor={'geekie-link-id-url'}
         >
           Link
@@ -91,14 +91,17 @@ const LinkSource = (props: SourceProps): JSX.Element => {
           onChange={handleChangeURL}
           value={url}
           id="geekie-link-id-url"
-          className={`${defaultTheme.styleInput}`}
+          className={`GeekieLink-input ${defaultTheme.styleInput}`}
         />
 
-        <button type="submit" className={`${defaultTheme.styleButton}`}>
+        <button
+          type="submit"
+          className={`GeekieLink-button ${defaultTheme.styleButton}`}
+        >
           Ok
         </button>
         <button
-          className={`${defaultTheme.styleButton}`}
+          className={`GeekieLink-button ${defaultTheme.styleButton}`}
           onClick={handleRequestClose}
         >
           Cancelar

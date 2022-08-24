@@ -2,6 +2,7 @@ import React from 'react';
 
 const LinkIcon = (
   <svg
+    className={`GeekieLink-toolbar-icon`}
     width="16"
     height="8"
     viewBox="0 0 16 8"
