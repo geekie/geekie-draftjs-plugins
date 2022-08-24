@@ -76,7 +76,7 @@ const LinkSource = (props: SourceProps): JSX.Element => {
   }, [formRef, clickedOutside]);
 
   return (
-    <Draggable>
+    <Draggable cancel={'input, button'}>
       <form
         dir={textDirectionality === 'RTL' ? 'rtl' : undefined}
         className={`GeekieLink-form ${defaultTheme.styleForm} ${defaultTheme.styleGlobal}`}
