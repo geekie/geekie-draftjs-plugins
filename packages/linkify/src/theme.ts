@@ -24,7 +24,7 @@ export const defaultTheme: LinkifyPluginTheme = {
     display: block;
     margin-top: 6px;
     border: 1px solid #d3d7de;
-    borderradius: 4px;
+    border-radius: 4px;
     width: 244px;
     height: 32px;
     margin-left: 16px;
@@ -34,7 +34,7 @@ export const defaultTheme: LinkifyPluginTheme = {
     display: block;
     font-weight: 700;
     font-family: Lato, Arial;
-    font-size: 14;
+    font-size: 14px;
     line-height: 17px;
     margin-top: 15px;
     margin-left: 16px;
@@ -51,7 +51,7 @@ export const defaultTheme: LinkifyPluginTheme = {
     position: absolute;
     z-index: 99;
     top: 26px;
-    left: 100px;
+    left: 30%;
   `,
   styleGlobal: css`
     :global() {
