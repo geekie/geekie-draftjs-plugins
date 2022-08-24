@@ -5,6 +5,7 @@ export interface LinkifyPluginTheme {
   styleInput?: string;
   styleLabel?: string;
   styleForm?: string;
+  styleGlobal?: string;
 }
 
 export const defaultTheme: LinkifyPluginTheme = {
@@ -13,8 +14,8 @@ export const defaultTheme: LinkifyPluginTheme = {
     width: 74px;
     height: 30px;
     margin: 10px;
-    background-color: #FFFFFF;
-    border: 1px solid #F1F1F1;
+    background-color: #ffffff;
+    border: 1px solid #f1f1f1;
     &:hover {
       box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 0.25);
     }
@@ -22,13 +23,13 @@ export const defaultTheme: LinkifyPluginTheme = {
   styleInput: css`
     display: block;
     margin-top: 6px;
-    border: 1px solid #D3D7DE;
-    borderRadius: 4px;
+    border: 1px solid #d3d7de;
+    borderradius: 4px;
     width: 244px;
     height: 32px;
     margin-left: 16px;
   `,
-  
+
   styleLabel: css`
     display: block;
     font-weight: 700;
@@ -41,13 +42,22 @@ export const defaultTheme: LinkifyPluginTheme = {
   `,
   styleForm: css`
     pointer-events: all;
-    border: 1px solid #F1F1F1;
+    border: 1px solid #f1f1f1;
     box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.3);
     font-family: Lato, Arial;
     width: 280px;
     text-align: center;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     position: absolute;
     z-index: 99;
+    top: 26px;
+    left: 100px;
+  `,
+  styleGlobal: css`
+    :global() {
+      .Draftail-Editor {
+        position: relative;
+      }
+    }
   `,
 };

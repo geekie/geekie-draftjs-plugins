@@ -61,7 +61,7 @@ const LinkSource = (props: SourceProps): JSX.Element => {
     <Draggable>
       <form
         dir={textDirectionality === 'RTL' ? 'rtl' : undefined}
-        className={`LinkSource ${defaultTheme.styleForm}`}
+        className={`LinkSource ${defaultTheme.styleForm} ${defaultTheme.styleGlobal}`}
         onSubmit={handleConfirm}
       >
         <label
