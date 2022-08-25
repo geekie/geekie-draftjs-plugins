@@ -6,6 +6,12 @@ export interface LinkifyPluginTheme {
   styleLabel?: string;
   styleForm?: string;
   styleGlobal?: string;
+  styleLinkSpan?: string;
+  styleLinkDivTooltip?: string;
+  styleLinkTooltip?: string;
+  styleLinkTooltipIcon?: string;
+  styleLinkTooltipText?: string;
+  styleLinkUrl?: string;
 }
 
 export const defaultTheme: LinkifyPluginTheme = {
@@ -53,11 +59,73 @@ export const defaultTheme: LinkifyPluginTheme = {
     top: 26px;
     left: 30%;
   `,
+  styleLinkSpan: css`
+    display: inline-block;
+    color: #0f6dff;
+    text-decoration: underline;
+    position: relative;
+    &:hover {
+      cursor: pointer;
+    }
+  `,
   styleGlobal: css`
     :global() {
       .Draftail-Editor {
         position: relative;
       }
+      .Draftail-Editor .DraftEditor-root {
+        overflow: visible;
+      }
+    }
+  `,
+  styleLinkDivTooltip: css`
+    box-sizing: border-box;
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #f1f1f1;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    top: 25px;
+    text-align: center;
+    z-index: 99;
+    white-space: nowrap;
+  `,
+  styleLinkTooltip: css`
+    text-decoration: none;
+    font-family: Lato, Arial;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 40px;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    padding-left: 8px;
+    padding-right: 8px;
+    vertical-align: top;
+    &:hover {
+      cursor: pointer;
+    }
+  `,
+  styleLinkUrl: css`
+    font-size: 14px;
+    color: #0f6dff;
+    &:hover {
+      text-decoration: underline;
+    }
+  `,
+  styleLinkTooltipIcon: css`
+    margin-left: 18px;
+    margin-right: 12px;
+  `,
+  styleLinkTooltipText: css`
+    font-size: 13px;
+    padding-right: 12px;
+    padding-left: 12px;
+    color: #111112;
+    &:hover {
+      color: #0b43bf;
     }
   `,
 };
