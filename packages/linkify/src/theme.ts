@@ -103,12 +103,12 @@ export const defaultTheme: LinkifyPluginTheme = {
     display: inline-block;
     padding: 8px;
     vertical-align: top;
-    font-size: 13px;
     &:hover {
       cursor: pointer;
     }
   `,
   styleLinkUrl: css`
+    font-size: 14px;
     color: #0f6dff;
     &:hover {
       text-decoration: underline;
@@ -119,6 +119,7 @@ export const defaultTheme: LinkifyPluginTheme = {
     margin-right: 12px;
   `,
   styleLinkTooltipText: css`
+    font-size: 13px;
     padding-right: 12px;
     padding-left: 12px;
     color: #111112;
