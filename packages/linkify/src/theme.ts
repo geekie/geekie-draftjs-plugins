@@ -103,6 +103,7 @@ export const defaultTheme: LinkifyPluginTheme = {
     display: inline-block;
     padding: 8px;
     vertical-align: top;
+    font-size: 13px;
     &:hover {
       cursor: pointer;
     }
