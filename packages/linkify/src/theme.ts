@@ -101,7 +101,8 @@ export const defaultTheme: LinkifyPluginTheme = {
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
-    padding: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
     vertical-align: top;
     &:hover {
       cursor: pointer;
