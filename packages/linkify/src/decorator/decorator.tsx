@@ -52,7 +52,7 @@ const LinkDecorator = ({
             target={'_blank'}
             title={url}
             href={url}
-            className={`GeekieLink-link-tooltip-a ${defaultTheme.styleLinkTooltip}`}
+            className={`GeekieLink-link-tooltip-a ${defaultTheme.styleLinkTooltip} ${defaultTheme.styleLinkUrl}`}
             rel="noreferrer"
           >
             <span
