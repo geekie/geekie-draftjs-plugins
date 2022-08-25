@@ -19,6 +19,7 @@ const LinkDecorator = ({
   onRemove,
 }: DecoratorProps): JSX.Element => {
   const { url } = contentState.getEntity(entityKey).getData();
+  const shortenedUrl = url.replace('http://', '').replace('https://');
   const [showTooltip, setShowTooltip] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -57,7 +58,7 @@ const LinkDecorator = ({
             >
               {LinkIcon}
             </span>
-            {url}
+            {shortenedUrl}
           </a>
 
           <span

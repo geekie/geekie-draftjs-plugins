@@ -85,6 +85,13 @@ export const defaultTheme: LinkifyPluginTheme = {
   `,
   styleLinkTooltip: css`
     text-decoration: none;
+    font-family: Lato, Arial;
+    font-style: normal;
+    line-height: 17px;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: #0f6dff;
     display: block;
     float: left;
