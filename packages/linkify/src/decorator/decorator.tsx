@@ -39,7 +39,6 @@ const LinkDecorator = ({
   }, [divRef]);
   return (
     <span
-      title={url}
       className={`GeekieLink-link ${defaultTheme.styleLinkSpan}`}
       onClick={() => setShowTooltip(!showTooltip)}
     >
