@@ -50,9 +50,7 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
     recentlyUsedList.length > 0 ? 'Recentes' : categoriesOptions[0]
   );
 
-  const handleCancel = (): void => {
-    setShowSymbolPanel(false);
-  };
+  const handleCancel = (): void => setShowSymbolPanel(false);
 
   const currentSymbols =
     currentCategory === 'Recentes'
@@ -119,9 +117,7 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
             <div
               key={symbol}
               className={`GeekieSymbol-SymbolGrid ${defaultTheme.symbolGrid}`}
-              onClick={() => {
-                handleInsertSymbol(symbol);
-              }}
+              onClick={() => handleInsertSymbol(symbol)}
             >
               {symbol}
             </div>
@@ -130,9 +126,7 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
 
         <div
           className={`GeekieSymbol-CloseButton ${defaultTheme.closeButton}`}
-          onClick={() => {
-            handleCancel();
-          }}
+          onClick={handleCancel}
         >
           Fechar
         </div>
@@ -150,9 +144,7 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
         }`}
         aria-label={buttonTooltipText}
         data-draftail-balloon={buttonTooltipText}
-        onClick={() => {
-          setShowSymbolPanel(!showSymbolPanel);
-        }}
+        onClick={() => setShowSymbolPanel(!showSymbolPanel)}
       >
         <span className="Draftail-ToolbarButton__label">
           <AddSymbolIcon style={{ width: '12px', height: '12px' }} />
