@@ -46,7 +46,7 @@ const LinkDecorator = ({
       {showTooltip && (
         <div
           ref={divRef}
-          className={`GeekieLink-link-tooltip ${defaultTheme.styleLinkDivTooltip}`}
+          className={`GeekieLink-link-tooltip ${defaultTheme.styleLinkDivTooltip} ${defaultTheme.styleGlobal}`}
         >
           <a
             target={'_blank'}
@@ -64,14 +64,14 @@ const LinkDecorator = ({
           </a>
 
           <span
-            className={`GeekieLink-link-tooltip-editar ${defaultTheme.styleLinkTooltip}`}
+            className={`GeekieLink-link-tooltip-editar ${defaultTheme.styleLinkTooltip} ${defaultTheme.styleLinkTooltipText}`}
             onClick={() => onEdit(entityKey)}
           >
             {'Editar'}
           </span>
 
           <span
-            className={`GeekieLink-link-tooltip-remover ${defaultTheme.styleLinkTooltip}`}
+            className={`GeekieLink-link-tooltip-remover ${defaultTheme.styleLinkTooltip} ${defaultTheme.styleLinkTooltipText}`}
             onClick={() => onRemove(entityKey)}
           >
             {'Remover'}

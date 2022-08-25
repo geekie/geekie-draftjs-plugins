@@ -10,6 +10,7 @@ export interface LinkifyPluginTheme {
   styleLinkDivTooltip?: string;
   styleLinkTooltip?: string;
   styleLinkTooltipIcon?: string;
+  styleLinkTooltipText?: string;
 }
 
 export const defaultTheme: LinkifyPluginTheme = {
@@ -68,8 +69,9 @@ export const defaultTheme: LinkifyPluginTheme = {
   `,
   styleGlobal: css`
     :global() {
-      .Draftail-Editor {
+      .Draftail-Editor .DraftEditor-root {
         position: relative;
+        overflow: visible;
       }
     }
   `,
@@ -100,9 +102,17 @@ export const defaultTheme: LinkifyPluginTheme = {
     vertical-align: top;
     &:hover {
       cursor: pointer;
+      color: #0b43bf;
     }
   `,
   styleLinkTooltipIcon: css`
-    margin-right: 4px;
+    margin: 10px;
+    padding: 10px;
+  `,
+  styleLinkTooltipText: css`
+    color: #111112;
+    &:hover {
+      color: #0b43bf;
+    }
   `,
 };
