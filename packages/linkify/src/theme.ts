@@ -73,7 +73,7 @@ export const defaultTheme: LinkifyPluginTheme = {
       .Draftail-Editor {
         position: relative;
       }
-      .DraftEditor-root {
+      .Draftail-Editor .DraftEditor-root {
         overflow: visible;
       }
     }
@@ -94,22 +94,21 @@ export const defaultTheme: LinkifyPluginTheme = {
     text-decoration: none;
     font-family: Lato, Arial;
     font-style: normal;
+    font-weight: bold;
     line-height: 40px;
     max-width: 220px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #0f6dff;
     display: inline-block;
     padding: 8px;
     vertical-align: top;
     &:hover {
       cursor: pointer;
-      color: #0b43bf;
     }
   `,
   styleLinkUrl: css`
-    font-weight: bold;
+    color: #0f6dff;
     &:hover {
       text-decoration: underline;
     }
