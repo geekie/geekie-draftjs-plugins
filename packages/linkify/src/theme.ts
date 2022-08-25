@@ -118,6 +118,8 @@ export const defaultTheme: LinkifyPluginTheme = {
     margin-right: 12px;
   `,
   styleLinkTooltipText: css`
+    padding-right: 12px;
+    padding-left: 12px;
     color: #111112;
     &:hover {
       color: #0b43bf;
