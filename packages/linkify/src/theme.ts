@@ -6,6 +6,10 @@ export interface LinkifyPluginTheme {
   styleLabel?: string;
   styleForm?: string;
   styleGlobal?: string;
+  styleLinkSpan?: string;
+  styleLinkDivTooltip?: string;
+  styleLinkTooltip?: string;
+  styleLinkTooltipIcon?: string;
 }
 
 export const defaultTheme: LinkifyPluginTheme = {
@@ -53,11 +57,44 @@ export const defaultTheme: LinkifyPluginTheme = {
     top: 26px;
     left: 30%;
   `,
+  styleLinkSpan: css`
+    display: inline-block;
+    color: #0f6dff;
+    text-decoration: underline;
+    &:hover {
+      cursor: pointer;
+    }
+  `,
   styleGlobal: css`
     :global() {
       .Draftail-Editor {
         position: relative;
       }
     }
+  `,
+  styleLinkDivTooltip: css`
+    box-sizing: border-box;
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #f1f1f1;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    top: 25px;
+    text-align: center;
+    z-index: 99;
+  `,
+  styleLinkTooltip: css`
+    text-decoration: none;
+    color: #0f6dff;
+    display: block;
+    float: left;
+    padding: 8px;
+    &:hover {
+      cursor: pointer;
+      background-color: #dddddd;
+    }
+  `,
+  styleLinkTooltipIcon: css`
+    margin-right: 4px;
   `,
 };
