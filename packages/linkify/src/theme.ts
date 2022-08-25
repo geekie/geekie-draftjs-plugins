@@ -61,6 +61,7 @@ export const defaultTheme: LinkifyPluginTheme = {
     display: inline-block;
     color: #0f6dff;
     text-decoration: underline;
+    position: relative;
     &:hover {
       cursor: pointer;
     }
@@ -82,6 +83,7 @@ export const defaultTheme: LinkifyPluginTheme = {
     top: 25px;
     text-align: center;
     z-index: 99;
+    white-space: nowrap;
   `,
   styleLinkTooltip: css`
     text-decoration: none;
@@ -93,12 +95,11 @@ export const defaultTheme: LinkifyPluginTheme = {
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #0f6dff;
-    display: block;
-    float: left;
+    display: inline-block;
     padding: 8px;
+    vertical-align: top;
     &:hover {
       cursor: pointer;
-      background-color: #dddddd;
     }
   `,
   styleLinkTooltipIcon: css`
