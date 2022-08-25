@@ -39,6 +39,7 @@ const LinkDecorator = ({
   }, [divRef]);
   return (
     <span
+      title={url}
       className={`GeekieLink-link ${defaultTheme.styleLinkSpan}`}
       onClick={() => setShowTooltip(!showTooltip)}
     >
@@ -49,6 +50,7 @@ const LinkDecorator = ({
         >
           <a
             target={'_blank'}
+            title={url}
             href={url}
             className={`GeekieLink-link-tooltip-a ${defaultTheme.styleLinkTooltip}`}
             rel="noreferrer"
