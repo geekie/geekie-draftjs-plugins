@@ -34,12 +34,19 @@ export const defaultTheme: LinkifyPluginTheme = {
     width: 244px;
     height: 32px;
     margin-left: 16px;
+    padding: 0 4px;
+    &:hover {
+      border: 1px solid #81a3ef;
+    }
+    &:last-of-type {
+      margin-bottom: 10px;
+    }
   `,
 
   styleLabel: css`
     display: block;
-    font-weight: 700;
-    font-family: Lato, Arial;
+    font-weight: regular;
+    font-family: sans-serif;
     font-size: 14px;
     line-height: 17px;
     margin-top: 15px;
@@ -50,7 +57,7 @@ export const defaultTheme: LinkifyPluginTheme = {
     pointer-events: all;
     border: 1px solid #f1f1f1;
     box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.3);
-    font-family: Lato, Arial;
+    font-family: sans-serif;
     width: 280px;
     text-align: center;
     background-color: #ffffff;
@@ -61,7 +68,7 @@ export const defaultTheme: LinkifyPluginTheme = {
   `,
   styleLinkSpan: css`
     display: inline-block;
-    color: #0f6dff;
+    color: #0b43bf;
     text-decoration: underline;
     position: relative;
     &:hover {
@@ -85,6 +92,7 @@ export const defaultTheme: LinkifyPluginTheme = {
     border: 1px solid #f1f1f1;
     box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.1);
     border-radius: 2px;
+    padding: 0 18px;
     top: 25px;
     text-align: center;
     z-index: 99;
@@ -92,7 +100,7 @@ export const defaultTheme: LinkifyPluginTheme = {
   `,
   styleLinkTooltip: css`
     text-decoration: none;
-    font-family: Lato, Arial;
+    font-family: sans-serif;
     font-style: normal;
     font-weight: bold;
     line-height: 40px;
@@ -101,8 +109,6 @@ export const defaultTheme: LinkifyPluginTheme = {
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
-    padding-left: 8px;
-    padding-right: 8px;
     vertical-align: top;
     &:hover {
       cursor: pointer;
@@ -110,22 +116,24 @@ export const defaultTheme: LinkifyPluginTheme = {
   `,
   styleLinkUrl: css`
     font-size: 14px;
-    color: #0f6dff;
+    margin-right: 9px;
+    color: #0b43bf;
     &:hover {
       text-decoration: underline;
     }
   `,
   styleLinkTooltipIcon: css`
-    margin-left: 18px;
     margin-right: 12px;
   `,
   styleLinkTooltipText: css`
     font-size: 13px;
-    padding-right: 12px;
-    padding-left: 12px;
+    margin: 0 9px
     color: #111112;
     &:hover {
       color: #0b43bf;
+    }
+    &:last-of-type{
+      margin: 0 0 0 9px;
     }
   `,
 };
