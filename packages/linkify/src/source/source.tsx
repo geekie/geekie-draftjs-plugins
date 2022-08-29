@@ -6,16 +6,13 @@ import {
   EditorState,
   SelectionState,
   EditorChangeType,
+  EntityInstance,
 } from 'draft-js';
 
 import { defaultTheme } from '../theme';
 
 export type SourceProps = {
-  entity: {
-    getData: () => {
-      url: string;
-    };
-  };
+  entity: EntityInstance;
   editorState: EditorState;
   onComplete: (e: EditorState) => void;
   onClose: () => void;
@@ -140,11 +137,18 @@ function editLinkEntity(
   newEditorState = editText(newEditorState, selection, content);
 
   //seleciona texto se foi alterado
-  const start = Math.min(selection.getStartOffset(), selection.getEndOffset());
+  const start = selection.getStartOffset();
   const end = start + content.length;
 
+  const blockMap = newEditorState.getCurrentContent().getBlockMap();
+  const blockKey = blockMap.has(selection.getAnchorKey())
+    ? selection.getAnchorKey()
+    : selection.getFocusKey();
+
   selection = selection.merge({
+    anchorKey: blockKey,
     anchorOffset: start,
+    focusKey: blockKey,
     focusOffset: end,
     isBackward: false,
   });
@@ -185,12 +189,24 @@ function addLink(
 
 function getSelectionText(editorState: EditorState): string {
   const selection = editorState.getSelection();
-  const currentContent = editorState.getCurrentContent();
+  const contentState = editorState.getCurrentContent();
   const anchorKey = selection.getAnchorKey();
-  const currentContentBlock = currentContent.getBlockForKey(anchorKey);
+  const focusKey = selection.getFocusKey();
   const start = selection.getStartOffset();
   const end = selection.getEndOffset();
-  const selectedText = currentContentBlock.getText().slice(start, end);
+  const isBackward = selection.getIsBackward();
+  if (anchorKey === focusKey) {
+    const currentContentBlock = contentState.getBlockForKey(anchorKey);
+    return currentContentBlock.getText().slice(start, end);
+  }
+  let selectedText = contentState
+    .getBlockForKey(isBackward ? focusKey : anchorKey)
+    .getText()
+    .slice(start);
+  selectedText += contentState
+    .getBlockForKey(isBackward ? anchorKey : focusKey)
+    .getText()
+    .slice(0, end);
   return selectedText;
 }
 
