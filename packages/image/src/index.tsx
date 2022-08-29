@@ -101,7 +101,6 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
             getEditorState,
             setEditorState,
           }),
-          getEditorState,
         },
       };
     },
