@@ -22,8 +22,13 @@ export const defaultTheme: LinkifyPluginTheme = {
     margin: 10px;
     background-color: #ffffff;
     border: 1px solid #f1f1f1;
+    border-radius: 2px;
     &:hover {
       box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 0.25);
+    }
+    &:disabled {
+      box-shadow: 0px 0px 0px 0px;
+      background: #ebe9e9;
     }
   `,
   styleInput: css`
