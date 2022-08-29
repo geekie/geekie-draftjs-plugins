@@ -1,14 +1,14 @@
 import { pluginConfig } from './register';
 
-const ACCEPTED_MIMES = ['image/png', 'image/jpeg', 'image/gif'];
+const ACCEPTED_MIMES = ['image/gif', 'image/jpeg', 'image/jpg', 'image/png'];
 const MAX_IMAGE_DIMENSION_PX = 500;
 
-type Size = {
+type Dimensions = {
   width: number;
   height: number;
 };
 
-type GetAcceptableSizeProps = Size & {
+type GetAcceptableSizeProps = Dimensions & {
   maxDimension?: number;
 };
 
@@ -16,7 +16,7 @@ export const getAcceptableSize = ({
   width,
   height,
   maxDimension,
-}: GetAcceptableSizeProps): Size => {
+}: GetAcceptableSizeProps): Dimensions => {
   const max = maxDimension || MAX_IMAGE_DIMENSION_PX;
   let limitWidth = width;
   let limitHeight = height;
@@ -35,7 +35,9 @@ export const getAcceptableSize = ({
   return { width: limitWidth, height: limitHeight };
 };
 
-export const getHeightAndWidthFromDataUrl = (dataURL: string): Promise<Size> =>
+export const getHeightAndWidthFromDataUrl = (
+  dataURL: string
+): Promise<Dimensions> =>
   new Promise((resolve) => {
     const img = new Image();
     img.onload = () => {

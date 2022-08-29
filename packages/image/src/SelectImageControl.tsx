@@ -165,17 +165,13 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
               ? `GeekieImage-SelectImageButton--disabled ${defaultTheme.selectImageButtonDisabled}`
               : ''
           }`}
-          onClick={() => {
-            handleSubmit();
-          }}
+          onClick={handleSubmit}
         >
           Ok
         </div>
         <div
           className={`GeekieImage-SelectImageButton ${defaultTheme.selectImageButton}`}
-          onClick={() => {
-            handleCancel();
-          }}
+          onClick={handleCancel}
         >
           Cancelar
         </div>
@@ -208,7 +204,7 @@ export const control: React.ComponentType<DraftToolbarControlProps> = (
       <input
         type="file"
         style={{ display: 'none' }}
-        accept="image/*"
+        accept=".jpg,.gif,.jpeg,.png"
         ref={refImageInput}
         onChange={handleImageChange}
       />
