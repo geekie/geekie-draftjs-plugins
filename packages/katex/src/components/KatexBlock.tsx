@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useState } from "react";
-import katex from "katex";
-import { ContentBlock, EditorState } from "draft-js";
-import MathInput from "math-input-web-support/dist/components/app";
-import KatexOutput from "./KatexOutput";
+import { ContentBlock, EditorState } from 'draft-js';
+import katex from 'katex';
+import MathInput from 'math-input-web-support/dist/components/app';
+import React, { ChangeEvent, useState } from 'react';
+import KatexOutput from './KatexOutput';
 
 type KatexInternals = typeof katex & {
   __parse: (s: string) => void;
@@ -31,15 +31,20 @@ const KatexBlock = (props: Props): JSX.Element => {
   const { block, blockProps } = props;
   const { getEditorState, onRemove, onStartEdit, onFinishEdit } = blockProps;
 
-  const data: KatexBlockState = getEditorState().getCurrentContent().getEntity(block.getEntityAt(0)).getData();
+  const data: KatexBlockState = getEditorState()
+    .getCurrentContent()
+    .getEntity(block.getEntityAt(0))
+    .getData();
 
   const [isEditing, setIsEditing] = useState(data.isEditing);
   const [isInvalidTex, setIsInvalidTex] = useState(data.isInvalidTex);
   const [value, setValue] = useState(data.value);
 
-  const callbacks: {[key: string]: () => void} = {};
+  const callbacks: { [key: string]: () => void } = {};
 
-  const onValueChange = (evt: ChangeEvent<HTMLTextAreaElement> | string): void => {
+  const onValueChange = (
+    evt: ChangeEvent<HTMLTextAreaElement> | string
+  ): void => {
     const inputValue = typeof evt === 'string' ? evt : evt.target.value;
     try {
       if (inputValue.trim() === '') throw new Error();
@@ -73,7 +78,9 @@ const KatexBlock = (props: Props): JSX.Element => {
   const save = (): void => {
     const entityKey = block.getEntityAt(0);
     const editorState = getEditorState();
-    editorState.getCurrentContent().mergeEntityData(entityKey, { value, isNew: false });
+    editorState
+      .getCurrentContent()
+      .mergeEntityData(entityKey, { value, isNew: false });
     setIsInvalidTex(false);
     setIsEditing(false);
     finishEdit(editorState);
@@ -86,15 +93,19 @@ const KatexBlock = (props: Props): JSX.Element => {
     borderRadius: '2px',
     padding: '5px 10px',
     background: '#fff',
-    margin: '0 3px'
+    margin: '0 3px',
   };
 
   const editingForm = (
     <div className="GeekieKatex-EditPanel">
       <textarea onChange={onValueChange} onFocus={onFocus} value={value} />
       <div className="GeekieKatex-EditPanel-Buttons">
-        <button style={buttonStyle} disabled={isInvalidTex || value.trim() === ''} onClick={save}>
-          {isInvalidTex ? "Sintaxe inválida" : "Concluir edição"}
+        <button
+          style={buttonStyle}
+          disabled={isInvalidTex || value.trim() === ''}
+          onClick={save}
+        >
+          {isInvalidTex ? 'Sintaxe inválida' : 'Concluir edição'}
         </button>
         <button style={buttonStyle} onClick={remove}>
           Remover
@@ -103,20 +114,22 @@ const KatexBlock = (props: Props): JSX.Element => {
     </div>
   );
 
-  const display = isEditing
-    ? <MathInput
-        callbacks={callbacks}
-        displayMode
-        katex={katex}
-        onChange={onValueChange}
-        value={value}
-      />
-    : <KatexOutput onClick={startEdit} value={value} />;
+  const display = isEditing ? (
+    <MathInput
+      callbacks={callbacks}
+      displayMode
+      katex={katex}
+      onChange={onValueChange}
+      value={value}
+    />
+  ) : (
+    <KatexOutput onClick={startEdit} value={value} />
+  );
 
   const style: React.CSSProperties = {
-    textAlign: 'center'
+    textAlign: 'center',
   };
-  
+
   return (
     <div style={style}>
       {display}

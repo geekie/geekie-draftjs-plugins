@@ -6,10 +6,10 @@ import { getUploadImage, pluginConfig } from './register';
 import { SelectImageIcon } from './SelectImageIcon';
 import { defaultTheme } from './theme';
 import {
-  getHeightAndWidthFromDataUrl,
   getAcceptableSize,
-  isValidImageType,
+  getHeightAndWidthFromDataUrl,
   isValidImageSize,
+  isValidImageType,
 } from './utils';
 
 const buttonTooltipText = 'Imagem';

@@ -1,10 +1,10 @@
-import { ContentBlock, EditorState } from "draft-js";
-import 'mathquill-commonjs/mathquill.css';
+import { ContentBlock, EditorState } from 'draft-js';
 import 'katex/dist/katex.min.css';
-import { KATEX_ENTITY } from "./entity";
-import control from "./control";
-import KatexBlock, { KateBlockProps } from "./components/KatexBlock";
-import removeKatexBlock from "./modifiers/removeKatexBlock";
+import 'mathquill-commonjs/mathquill.css';
+import KatexBlock, { KateBlockProps } from './components/KatexBlock';
+import control from './control';
+import { KATEX_ENTITY } from './entity';
+import removeKatexBlock from './modifiers/removeKatexBlock';
 
 type DraftStateMethods = {
   getEditorState: () => EditorState;
@@ -35,7 +35,7 @@ export default (): KatexPlugin => {
       block,
       { getEditorState, setEditorState, setReadOnly }
     ) => {
-      if (block.getType() !== "atomic") return null;
+      if (block.getType() !== 'atomic') return null;
       const contentState = getEditorState().getCurrentContent();
       const entity = block.getEntityAt(0);
       if (!entity) return null;
@@ -69,13 +69,13 @@ export default (): KatexPlugin => {
             const editorState = getEditorState();
             const newEditorState = removeKatexBlock(editorState, blockKey);
             setEditorState(newEditorState);
-          }
-        }
+          },
+        },
       };
     },
     control,
     entityType: {
-      type: KATEX_ENTITY
-    }
+      type: KATEX_ENTITY,
+    },
   };
 };

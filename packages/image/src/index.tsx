@@ -1,16 +1,20 @@
-import React, { ComponentType, ReactElement } from 'react';
 import { ContentBlock, EditorState } from 'draft-js';
+import React, { ComponentType, ReactElement } from 'react';
 import { EditorPlugin } from '../../editor/src';
-import addImage, { IMAGE_ENTITY_TYPE } from './modifiers/addImage';
 import ImageComponent, { ImageProps } from './Image';
+import addImage, { IMAGE_ENTITY_TYPE } from './modifiers/addImage';
+import { getUploadImage, setFileLimitation } from './register';
 import { control, SelectImageControl } from './SelectImageControl';
 import { defaultTheme } from './theme';
-import { getUploadImage, setFileLimitation } from './register';
-import { getAcceptableSize, getHeightAndWidthFromDataUrl, isValidImageSize, isValidImageType } from './utils';
+import {
+  getAcceptableSize,
+  getHeightAndWidthFromDataUrl,
+  isValidImageSize,
+  isValidImageType,
+} from './utils';
 
 export { registerUploadImageTask, setFileLimitation } from './register';
-
-export { imageEntityToHTML, htmlToImageEntity } from './transformHTML';
+export { htmlToImageEntity, imageEntityToHTML } from './transformHTML';
 
 export interface ImagePluginConfig {
   imageSizeLimitation?: number;
@@ -88,17 +92,22 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
       };
     },
     handlePastedFiles: (files: File[], { getEditorState, setEditorState }) => {
-      if (!files.length || !isValidImageType(files[0]) || !isValidImageSize(files[0])) return 'handled';
+      if (
+        !files.length ||
+        !isValidImageType(files[0]) ||
+        !isValidImageSize(files[0])
+      )
+        return 'handled';
       getUploadImage()(files[0]).then(async (dataURL) => {
         const originalSize = await getHeightAndWidthFromDataUrl(dataURL);
         const acceptableSize = getAcceptableSize(originalSize);
         setEditorState(addImage(getEditorState(), dataURL, acceptableSize));
-      })
+      });
       return 'handled';
     },
     addImage,
     control,
-    entityType: { type: IMAGE_ENTITY_TYPE, }
+    entityType: { type: IMAGE_ENTITY_TYPE },
   };
 };
 

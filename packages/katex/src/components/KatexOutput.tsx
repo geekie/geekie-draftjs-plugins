@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import katex from "katex";
+import katex from 'katex';
+import React, { useState } from 'react';
 
 type Props = {
   value: string;
@@ -27,10 +27,17 @@ const KatexOutput = (props: Props): JSX.Element => {
 
   const style: React.CSSProperties = {
     cursor: 'pointer',
-    userSelect: 'none'
+    userSelect: 'none',
   };
 
-  return <div className="GeekieKatex-Output" ref={(c) => setContainer(c)} onClick={onClick} style={style} />;
+  return (
+    <div
+      className="GeekieKatex-Output"
+      ref={(c) => setContainer(c)}
+      onClick={onClick}
+      style={style}
+    />
+  );
 };
 
 export default KatexOutput;

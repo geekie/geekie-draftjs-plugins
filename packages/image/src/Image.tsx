@@ -1,3 +1,4 @@
+import { ContentBlock, ContentState } from 'draft-js';
 import React, {
   CSSProperties,
   ImgHTMLAttributes,
@@ -5,7 +6,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { ContentBlock, ContentState } from 'draft-js';
 import { Resizable, ResizableProps } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import { useClickAway } from 'react-use';
