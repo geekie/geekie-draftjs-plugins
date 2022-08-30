@@ -72,6 +72,7 @@ export const defaultTheme: LinkifyPluginTheme = {
     left: 30%;
   `,
   styleLinkSpan: css`
+    display: inline-block;
     color: #0b43bf;
     text-decoration: underline;
     position: relative;
