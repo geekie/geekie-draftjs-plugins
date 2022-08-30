@@ -114,6 +114,7 @@ const LinkSource = (props: SourceProps): JSX.Element => {
         />
 
         <button
+          disabled={!content || !url}
           type="submit"
           className={`GeekieLink-button ${defaultTheme.styleButton}`}
         >
