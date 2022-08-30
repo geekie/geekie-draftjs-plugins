@@ -71,7 +71,10 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
   );
 
   return {
-    blockRendererFn: (block, { getEditorState, setEditorState }) => {
+    blockRendererFn: (
+      block,
+      { getEditorState, setEditorState, setReadOnly }
+    ) => {
       if (block.getType() !== 'atomic') return null;
       const contentState = getEditorState().getCurrentContent();
       const entity = block.getEntityAt(0);
@@ -84,6 +87,16 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
         editable: false,
         props: {
           resizeData,
+          onStartEdit: () => setReadOnly(true),
+          onFinishEdit: () => {
+            setReadOnly(false);
+            setEditorState(
+              EditorState.forceSelection(
+                getEditorState(),
+                getEditorState().getSelection()
+              )
+            );
+          },
           setResizeData: createSetResizeData(block, {
             getEditorState,
             setEditorState,

@@ -3,6 +3,7 @@ import React, {
   CSSProperties,
   ImgHTMLAttributes,
   ReactElement,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -26,6 +27,8 @@ export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   blockProps: {
     resizeData?: ResizeData;
     setResizeData: (data: ResizeData) => void;
+    onStartEdit: () => void;
+    onFinishEdit: () => void;
   };
   customStyleMap: unknown;
   customStyleFn: unknown;
@@ -43,7 +46,12 @@ export default React.forwardRef<HTMLImageElement, ImageProps>(
     const { block, ...otherProps } = props;
     // leveraging destructuring to omit certain properties from props
     const {
-      blockProps: { setResizeData, resizeData = { width: 500, height: 500 } },
+      blockProps: {
+        setResizeData,
+        resizeData = { width: 500, height: 500 },
+        onStartEdit,
+        onFinishEdit,
+      },
       customStyleMap, // eslint-disable-line @typescript-eslint/no-unused-vars
       customStyleFn, // eslint-disable-line @typescript-eslint/no-unused-vars
       decorator, // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -63,10 +71,13 @@ export default React.forwardRef<HTMLImageElement, ImageProps>(
 
     const [isFocus, setIsFocus] = useState(false);
 
+    useEffect(() => onStartEdit(), [isFocus]);
+
     const containerRef = useRef(null);
     useClickAway(containerRef, (event) => {
       event.stopPropagation();
       setIsFocus(false);
+      onFinishEdit();
     });
 
     // eslint-disable-next-line no-shadow
