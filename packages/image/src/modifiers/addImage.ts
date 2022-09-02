@@ -12,7 +12,7 @@ export default (
   const contentStateWithEntity = contentState.createEntity(
     urlType,
     'IMMUTABLE',
-    { ...extraData, src: url, isNew: true }
+    { ...extraData, src: url }
   );
   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
   const newEditorState = AtomicBlockUtils.insertAtomicBlock(

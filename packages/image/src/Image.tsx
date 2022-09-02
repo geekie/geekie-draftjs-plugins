@@ -1,4 +1,4 @@
-import { ContentBlock, ContentState, EditorState } from 'draft-js';
+import { ContentBlock, ContentState } from 'draft-js';
 import React, {
   CSSProperties,
   ImgHTMLAttributes,
@@ -29,7 +29,6 @@ export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     setResizeData: (data: ResizeData) => void;
     onStartEdit: () => void;
     onFinishEdit: () => void;
-    getEditorState: () => EditorState;
   };
   customStyleMap: unknown;
   customStyleFn: unknown;
@@ -48,7 +47,6 @@ export default React.forwardRef<HTMLImageElement, ImageProps>(
     // leveraging destructuring to omit certain properties from props
     const {
       blockProps: {
-        getEditorState,
         setResizeData,
         resizeData = { width: 500, height: 500 },
         onStartEdit,
@@ -67,9 +65,7 @@ export default React.forwardRef<HTMLImageElement, ImageProps>(
       ...elementProps
     } = otherProps;
 
-    const { src, isNew } = contentState
-      .getEntity(block.getEntityAt(0))
-      .getData();
+    const { src } = contentState.getEntity(block.getEntityAt(0)).getData();
 
     const { width, height } = resizeData;
 
@@ -78,14 +74,6 @@ export default React.forwardRef<HTMLImageElement, ImageProps>(
     useEffect(() => {
       if (isFocus) onStartEdit();
     }, [isFocus]);
-
-    if (isNew) {
-      const entityKey = block.getEntityAt(0);
-      const editorState = getEditorState();
-      editorState
-        .getCurrentContent()
-        .mergeEntityData(entityKey, { src, isNew: false });
-    }
 
     const containerRef = useRef(null);
     useClickAway(containerRef, (event) => {
