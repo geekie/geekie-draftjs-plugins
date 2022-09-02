@@ -86,7 +86,6 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
         component: ThemedImage,
         editable: false,
         props: {
-          getEditorState,
           resizeData,
           onStartEdit: () => setReadOnly(true),
           onFinishEdit: () => setReadOnly(false),
