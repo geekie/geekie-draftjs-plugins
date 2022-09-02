@@ -88,15 +88,7 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
         props: {
           resizeData,
           onStartEdit: () => setReadOnly(true),
-          onFinishEdit: () => {
-            setReadOnly(false);
-            setEditorState(
-              EditorState.forceSelection(
-                getEditorState(),
-                getEditorState().getSelection()
-              )
-            );
-          },
+          onFinishEdit: () => setReadOnly(false),
           setResizeData: createSetResizeData(block, {
             getEditorState,
             setEditorState,
