@@ -3,6 +3,7 @@ import React, { ComponentType, ReactElement } from 'react';
 import { EditorPlugin } from '../../editor/src';
 import ImageComponent, { ImageProps } from './Image';
 import addImage, { IMAGE_ENTITY_TYPE } from './modifiers/addImage';
+import removeImage from './modifiers/removeImage';
 import { getUploadImage, setFileLimitation } from './register';
 import { control, SelectImageControl } from './SelectImageControl';
 import { defaultTheme } from './theme';
@@ -70,11 +71,10 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
     <Image {...props} theme={theme} />
   );
 
+  let focusedBlock: ContentBlock | null = null;
+
   return {
-    blockRendererFn: (
-      block,
-      { getEditorState, setEditorState, setReadOnly }
-    ) => {
+    blockRendererFn: (block, { getEditorState, setEditorState }) => {
       if (block.getType() !== 'atomic') return null;
       const contentState = getEditorState().getCurrentContent();
       const entity = block.getEntityAt(0);
@@ -87,8 +87,9 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
         editable: false,
         props: {
           resizeData,
-          onStartEdit: () => setReadOnly(true),
-          onFinishEdit: () => setReadOnly(false),
+          onChangeFocus: (isFocus: boolean) => {
+            focusedBlock = isFocus ? block : null;
+          },
           setResizeData: createSetResizeData(block, {
             getEditorState,
             setEditorState,
@@ -108,6 +109,13 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
         const acceptableSize = getAcceptableSize(originalSize);
         setEditorState(addImage(getEditorState(), dataURL, acceptableSize));
       });
+      return 'handled';
+    },
+    keyBindingFn(event, { getEditorState, setEditorState }) {
+      if (event.key !== 'Backspace' || !focusedBlock) return undefined;
+      const editorState = getEditorState();
+      const newEditorState = removeImage(editorState, focusedBlock.getKey());
+      setEditorState(newEditorState);
       return 'handled';
     },
     addImage,
