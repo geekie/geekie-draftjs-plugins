@@ -71,11 +71,14 @@ export default React.forwardRef<HTMLImageElement, ImageProps>(
 
     const [isFocus, setIsFocus] = useState(false);
 
-    useEffect(() => onStartEdit(), [isFocus]);
+    useEffect(() => {
+      if (isFocus) onStartEdit();
+    }, [isFocus]);
 
     const containerRef = useRef(null);
     useClickAway(containerRef, (event) => {
       event.stopPropagation();
+      if (!isFocus) return;
       setIsFocus(false);
       onFinishEdit();
     });
