@@ -111,11 +111,12 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
       });
       return 'handled';
     },
-    keyBindingFn(event, { getEditorState, setEditorState }) {
+    keyBindingFn: (event, { getEditorState, setEditorState }) => {
       if (event.key !== 'Backspace' || !focusedBlock) return undefined;
       const editorState = getEditorState();
       const newEditorState = removeImage(editorState, focusedBlock.getKey());
       setEditorState(newEditorState);
+      focusedBlock = null;
       return 'handled';
     },
     addImage,

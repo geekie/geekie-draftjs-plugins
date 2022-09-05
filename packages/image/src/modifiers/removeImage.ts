@@ -13,7 +13,7 @@ export default (editorState: EditorState, blockKey: string): EditorState => {
   const afterBlock = content.getBlockForKey(afterKey);
   let targetRange;
 
-  // Only if the following block the last with no text then the whole block
+  // Only if the following block is the last with no text then the whole block
   // should be removed. Otherwise the block should be reduced to an unstyled block
   // without any characters.
   if (
