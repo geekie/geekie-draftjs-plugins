@@ -10,6 +10,7 @@ import React, {
 import { Resizable, ResizableProps } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import { useClickAway } from 'react-use';
+import { MAX_CONSTRAINT_PX, MIN_CONSTRAINT_PX } from './constants';
 import { defaultTheme, ImagePluginTheme } from './theme';
 
 type ResizeData = {
@@ -17,12 +18,18 @@ type ResizeData = {
   height: number;
 };
 
+type SizeConstraints = {
+  minWidth: number;
+  maxWidth: number;
+  minHeight: number;
+  maxHeight: number;
+};
+
 export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   block: ContentBlock;
   className?: string;
   theme: ImagePluginTheme;
   contentState: ContentState;
-
   blockStyleFn: unknown;
   blockProps: {
     resizeData?: ResizeData;
@@ -68,6 +75,35 @@ export default React.forwardRef<HTMLImageElement, ImageProps>(
     const { width, height } = resizeData;
 
     const [isFocus, setIsFocus] = useState(false);
+    const [constraints, setConstraints] = useState<SizeConstraints | null>(
+      null
+    );
+
+    if (!constraints) {
+      const ratio = width / height;
+      if (ratio === 1) {
+        setConstraints({
+          minWidth: MIN_CONSTRAINT_PX,
+          minHeight: MIN_CONSTRAINT_PX,
+          maxWidth: MAX_CONSTRAINT_PX,
+          maxHeight: MAX_CONSTRAINT_PX,
+        });
+      } else if (ratio > 1) {
+        setConstraints({
+          minWidth: MIN_CONSTRAINT_PX * ratio,
+          minHeight: MIN_CONSTRAINT_PX,
+          maxWidth: MAX_CONSTRAINT_PX,
+          maxHeight: MAX_CONSTRAINT_PX / ratio,
+        });
+      } else {
+        setConstraints({
+          minWidth: MIN_CONSTRAINT_PX,
+          minHeight: MIN_CONSTRAINT_PX / ratio,
+          maxWidth: MAX_CONSTRAINT_PX * ratio,
+          maxHeight: MAX_CONSTRAINT_PX,
+        });
+      }
+    }
 
     useEffect(() => onChangeFocus(isFocus), [isFocus]);
 
@@ -127,10 +163,16 @@ export default React.forwardRef<HTMLImageElement, ImageProps>(
         <Resizable
           height={height}
           width={width}
-          maxConstraints={[864, 864]}
+          minConstraints={[
+            constraints?.minWidth || MIN_CONSTRAINT_PX,
+            constraints?.minHeight || MIN_CONSTRAINT_PX,
+          ]}
+          maxConstraints={[
+            constraints?.maxWidth || MAX_CONSTRAINT_PX,
+            constraints?.maxHeight || MAX_CONSTRAINT_PX,
+          ]}
           resizeHandles={isFocus ? ['sw', 'nw', 'se', 'ne'] : []}
           handle={renderHandle}
-          handleSize={[10, 10]}
           lockAspectRatio
           onResize={(_event, { size }) => {
             setResizeData({

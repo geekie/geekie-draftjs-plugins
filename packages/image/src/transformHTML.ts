@@ -1,3 +1,5 @@
+import { MAX_IMAGE_INITIAL_DIMENSION_PX } from './constants';
+
 type TransformImageEntity = {
   type: string;
   mutability: string;
@@ -37,13 +39,18 @@ export const htmlToImageEntity = (
   node: HTMLImageElement
 ): TransformImageEntity | undefined => {
   if (nodeName === 'img' && node.hasAttribute(imageTypeAttributeLabel)) {
+    const maxImageInitialDimension = MAX_IMAGE_INITIAL_DIMENSION_PX.toString();
     return {
       type: 'GEEKIE_IMAGE',
       mutability: 'IMMUTABLE',
       data: {
         src: node.getAttribute('src') || '',
-        height: parseFloat(getDataAttribute(node, 'height') || '500'),
-        width: parseFloat(getDataAttribute(node, 'width') || '500'),
+        height: parseFloat(
+          getDataAttribute(node, 'height') || maxImageInitialDimension
+        ),
+        width: parseFloat(
+          getDataAttribute(node, 'width') || maxImageInitialDimension
+        ),
       },
     };
   }
