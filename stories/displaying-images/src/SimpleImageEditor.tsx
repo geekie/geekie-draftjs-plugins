@@ -26,7 +26,7 @@ const plugins = [imagePlugin];
 const html = `<p>This is a paragraph!</p>
 <p><strong>This is a bold paragraph!</strong></p>
 <p></p>
-<img src="https://picsum.photos/300/300" data-geekie-image data-width="580.1666660308838" data-height="580.1666660308838" style="height: 580.1666660308838px;width: 580.1666660308838px" />
+<img src="https://picsum.photos/200/400" data-geekie-image data-width="200" data-height="400" style="height: 400px;width: 200px" />
 <p></p>
 <p><em>This is an italic paragraph!</em></p>
 <p><strong>This</strong> <em>one</em> is kind of mixed 😅</p>
@@ -34,7 +34,7 @@ const html = `<p>This is a paragraph!</p>
 `;
 
 // Register how to upload the selected image
-registerUploadImageTask(() => Promise.resolve('https://picsum.photos/300/300'));
+registerUploadImageTask(() => Promise.resolve('https://picsum.photos/500/200'));
 
 const SimpleImageEditor = (): ReactElement => {
   const contentState = ContentState.createFromBlockArray(

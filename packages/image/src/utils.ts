@@ -1,7 +1,5 @@
+import { ACCEPTED_MIMES, MAX_IMAGE_INITIAL_DIMENSION_PX } from './constants';
 import { pluginConfig } from './register';
-
-const ACCEPTED_MIMES = ['image/gif', 'image/jpeg', 'image/jpg', 'image/png'];
-const MAX_IMAGE_DIMENSION_PX = 500;
 
 type Dimensions = {
   width: number;
@@ -17,7 +15,7 @@ export const getAcceptableSize = ({
   height,
   maxDimension,
 }: GetAcceptableSizeProps): Dimensions => {
-  const max = maxDimension || MAX_IMAGE_DIMENSION_PX;
+  const max = maxDimension || MAX_IMAGE_INITIAL_DIMENSION_PX;
   let limitWidth = width;
   let limitHeight = height;
   const ratio = width / height;
