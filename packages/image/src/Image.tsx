@@ -27,8 +27,7 @@ export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   blockProps: {
     resizeData?: ResizeData;
     setResizeData: (data: ResizeData) => void;
-    onStartEdit: () => void;
-    onFinishEdit: () => void;
+    onChangeFocus: (isFocus: boolean) => void;
   };
   customStyleMap: unknown;
   customStyleFn: unknown;
@@ -49,8 +48,7 @@ export default React.forwardRef<HTMLImageElement, ImageProps>(
       blockProps: {
         setResizeData,
         resizeData = { width: 500, height: 500 },
-        onStartEdit,
-        onFinishEdit,
+        onChangeFocus,
       },
       customStyleMap, // eslint-disable-line @typescript-eslint/no-unused-vars
       customStyleFn, // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -71,16 +69,12 @@ export default React.forwardRef<HTMLImageElement, ImageProps>(
 
     const [isFocus, setIsFocus] = useState(false);
 
-    useEffect(() => {
-      if (isFocus) onStartEdit();
-    }, [isFocus]);
+    useEffect(() => onChangeFocus(isFocus), [isFocus]);
 
     const containerRef = useRef(null);
     useClickAway(containerRef, (event) => {
       event.stopPropagation();
-      if (!isFocus) return;
       setIsFocus(false);
-      onFinishEdit();
     });
 
     // eslint-disable-next-line no-shadow
