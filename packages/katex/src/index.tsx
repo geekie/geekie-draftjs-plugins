@@ -68,6 +68,7 @@ export default (): KatexPlugin => {
             blocksInEditingMode.delete(blockKey);
             const editorState = getEditorState();
             const newEditorState = removeKatexBlock(editorState, blockKey);
+            setReadOnly(false);
             setEditorState(newEditorState);
           },
         },
