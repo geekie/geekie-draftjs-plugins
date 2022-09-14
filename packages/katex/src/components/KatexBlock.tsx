@@ -1,7 +1,7 @@
 import { ContentBlock, EditorState } from 'draft-js';
 import katex from 'katex';
 import MathInput from 'math-input-web-support/dist/components/app';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import KatexOutput from './KatexOutput';
 
 type KatexInternals = typeof katex & {
@@ -39,6 +39,7 @@ const KatexBlock = (props: Props): JSX.Element => {
   const [isEditing, setIsEditing] = useState(data.isEditing);
   const [isInvalidTex, setIsInvalidTex] = useState(data.isInvalidTex);
   const [value, setValue] = useState(data.value);
+  const mathInput = useRef<{ focus: () => void }>(null);
 
   const callbacks: { [key: string]: () => void } = {};
 
@@ -55,10 +56,6 @@ const KatexBlock = (props: Props): JSX.Element => {
     } finally {
       setValue(inputValue);
     }
-  };
-
-  const onFocus = (): void => {
-    if (callbacks.blur) callbacks.blur();
   };
 
   const startEdit = (): void => {
@@ -96,9 +93,13 @@ const KatexBlock = (props: Props): JSX.Element => {
     margin: '0 3px',
   };
 
+  useEffect(() => {
+    if (!mathInput.current) return;
+    mathInput.current.focus();
+  }, [isEditing]);
+
   const editingForm = (
     <div className="GeekieKatex-EditPanel">
-      <textarea onChange={onValueChange} onFocus={onFocus} value={value} />
       <div className="GeekieKatex-EditPanel-Buttons">
         <button
           style={buttonStyle}
@@ -117,10 +118,10 @@ const KatexBlock = (props: Props): JSX.Element => {
   const display = isEditing ? (
     <MathInput
       callbacks={callbacks}
-      displayMode
       katex={katex}
       onChange={onValueChange}
       value={value}
+      ref={mathInput}
     />
   ) : (
     <KatexOutput onClick={startEdit} value={value} />

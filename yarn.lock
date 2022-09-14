@@ -9162,10 +9162,10 @@ matched@^5.0.1:
     glob "^7.1.6"
     picomatch "^2.2.1"
 
-math-input-web-support@0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/math-input-web-support/-/math-input-web-support-0.2.4.tgz#92951836658ebb69b4fa120284393d55edf5d8f2"
-  integrity sha512-SYbD0HvkYffZ8fDib5Q0y7aQi4XOph/sOQEU5PdnkHDhWG2mYu/HFhhZTatuD/LCI3hJrgq+ZDxkIx6cb68X9A==
+math-input-web-support@0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/math-input-web-support/-/math-input-web-support-0.2.5.tgz#78be3dc422587006eda28d56e78909c617bedf9d"
+  integrity sha512-nAmM8A2KlPEwve6TMOZKITYpEySZzMyOtc9sdbVNwwM/1vkCcM/e9tpjlLXgeMlLPtk37+4FqZeG2Wa6KyP1dw==
   dependencies:
     aphrodite "^0.2.0"
     create-react-class "^15.7.0"
