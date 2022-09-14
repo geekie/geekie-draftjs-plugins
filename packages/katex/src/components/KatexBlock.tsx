@@ -86,11 +86,19 @@ const KatexBlock = (props: Props): JSX.Element => {
   if (data.isNew && !isEditing) startEdit();
 
   const buttonStyle: React.CSSProperties = {
+    width: 74,
+    height: 30,
     border: '1px solid #f1f1f1',
     borderRadius: '2px',
-    padding: '5px 10px',
+    padding: '7px 9px',
     background: '#fff',
     margin: '0 3px',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: '13px',
+    lineHeight: '16px',
+    color: '#111112',
+    cursor: 'pointer',
   };
 
   useEffect(() => {
@@ -98,15 +106,24 @@ const KatexBlock = (props: Props): JSX.Element => {
     mathInput.current.focus();
   }, [isEditing]);
 
+  const isDisabled = isInvalidTex || value.trim() === '';
+  const isInvalid = isInvalidTex && !(value.trim() === '');
+
   const editingForm = (
     <div className="GeekieKatex-EditPanel">
       <div className="GeekieKatex-EditPanel-Buttons">
         <button
-          style={buttonStyle}
-          disabled={isInvalidTex || value.trim() === ''}
+          style={{
+            ...buttonStyle,
+            width: isInvalid ? 'auto' : 74,
+            color: isDisabled ? '#A9A8A8' : '#111112',
+            backgroundColor: isDisabled ? '#EBE9E9' : 'transparent',
+            pointerEvents: isDisabled ? 'none' : 'all',
+          }}
+          disabled={isDisabled}
           onClick={save}
         >
-          {isInvalidTex ? 'Sintaxe inválida' : 'Concluir edição'}
+          {isInvalid ? 'Sintaxe inválida' : 'Salvar'}
         </button>
         <button style={buttonStyle} onClick={remove}>
           Remover
