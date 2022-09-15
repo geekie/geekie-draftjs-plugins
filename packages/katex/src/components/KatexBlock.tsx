@@ -3,6 +3,7 @@ import katex from 'katex';
 import MathInput from 'math-input-web-support/dist/components/app';
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import KatexOutput from './KatexOutput';
+import { defaultTheme } from '../theme';
 
 type KatexInternals = typeof katex & {
   __parse: (s: string) => void;
@@ -134,6 +135,7 @@ const KatexBlock = (props: Props): JSX.Element => {
 
   const display = isEditing ? (
     <MathInput
+      classname={`${defaultTheme.styleGlobal}`}
       callbacks={callbacks}
       katex={katex}
       onChange={onValueChange}
