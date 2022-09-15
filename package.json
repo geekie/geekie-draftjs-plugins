@@ -5,6 +5,8 @@
   "dependencies": {
     "draft-js": "^0.10.0",
     "eslint-plugin-import": "^2.26.0",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-resizable": "^3.0.4"
@@ -109,7 +111,7 @@
     "build:dts": "yarn workspace @draft-js-plugins/editor run build",
     "prerelease": "yarn build",
     "release": "changeset publish",
-    "postinstall": "husky install"
+    "postinstall": "husky install && patch-package"
   },
   "workspaces": [
     "packages/*"
