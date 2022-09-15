@@ -8,7 +8,7 @@ export const defaultTheme: KatexPluginTheme = {
   styleGlobal: css`
     :global() {
       .mq-editable-field {
-        border: 1px solid #0b43bf !important;
+        border-width: 1px !important;
       }
     }
   `,
