@@ -1,7 +1,13 @@
 import { ContentBlock, EditorState } from 'draft-js';
 import katex from 'katex';
 import MathInput from 'math-input-web-support/dist/components/app';
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import KatexOutput from './KatexOutput';
 
 type KatexInternals = typeof katex & {
@@ -10,6 +16,7 @@ type KatexInternals = typeof katex & {
 
 export type KateBlockProps = {
   getEditorState: () => EditorState;
+  infoComponent?: ReactElement;
   onRemove: (key: string) => void;
   onStartEdit: (key: string) => void;
   onFinishEdit: (key: string, newEditorState: EditorState) => void;
@@ -29,8 +36,12 @@ type Props = {
 
 const KatexBlock = (props: Props): JSX.Element => {
   const { block, blockProps } = props;
-  const { getEditorState, onRemove, onStartEdit, onFinishEdit } = blockProps;
-
+  const { getEditorState, infoComponent, onRemove, onStartEdit, onFinishEdit } =
+    blockProps;
+  // eslint-disable-next-line no-console
+  console.log(props, 'props KatexBlock');
+  // eslint-disable-next-line no-console
+  console.log(infoComponent, 'infoComponent KatexBlock');
   const data: KatexBlockState = getEditorState()
     .getCurrentContent()
     .getEntity(block.getEntityAt(0))
@@ -101,6 +112,13 @@ const KatexBlock = (props: Props): JSX.Element => {
     cursor: 'pointer',
   };
 
+  const infoComponentStyle: React.CSSProperties = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
+  };
+
   useEffect(() => {
     if (!mathInput.current) return;
     mathInput.current.focus();
@@ -111,6 +129,12 @@ const KatexBlock = (props: Props): JSX.Element => {
 
   const editingForm = (
     <div className="GeekieKatex-EditPanel">
+      <div
+        className="GeekieKatex-InfoComponent-Container"
+        style={infoComponentStyle}
+      >
+        {infoComponent}
+      </div>
       <div className="GeekieKatex-EditPanel-Buttons">
         <button
           style={{
