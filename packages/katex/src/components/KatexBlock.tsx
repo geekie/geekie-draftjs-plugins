@@ -100,6 +100,7 @@ const KatexBlock = (props: Props): JSX.Element => {
     lineHeight: '16px',
     color: '#111112',
     cursor: 'pointer',
+    marginBottom: 160,
   };
 
   useEffect(() => {
