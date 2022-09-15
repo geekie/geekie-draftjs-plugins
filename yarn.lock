@@ -9204,10 +9204,10 @@ matched@^5.0.1:
     glob "^7.1.6"
     picomatch "^2.2.1"
 
-math-input-web-support@0.2.5:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/math-input-web-support/-/math-input-web-support-0.2.5.tgz#78be3dc422587006eda28d56e78909c617bedf9d"
-  integrity sha512-nAmM8A2KlPEwve6TMOZKITYpEySZzMyOtc9sdbVNwwM/1vkCcM/e9tpjlLXgeMlLPtk37+4FqZeG2Wa6KyP1dw==
+math-input-web-support@0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/math-input-web-support/-/math-input-web-support-0.2.6.tgz#e069da10da8851984936ded904069891700f741e"
+  integrity sha512-gOEbMxixR89Wgb0oDh3NpszEmKf5Y/qYwfDeIBOAS+bN4vKeD1XGS9S0mQrfWJWj8DpGv6x0bRwARR+aP5LHPw==
   dependencies:
     aphrodite "^0.2.0"
     create-react-class "^15.7.0"

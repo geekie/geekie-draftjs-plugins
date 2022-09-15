@@ -37,8 +37,7 @@ type Props = {
 
 const KatexBlock = (props: Props): JSX.Element => {
   const { block, blockProps } = props;
-  const { getEditorState, infoComponent, onRemove, onStartEdit, onFinishEdit } =
-    blockProps;
+  const { getEditorState, infoComponent, onRemove, onStartEdit, onFinishEdit } = blockProps;
   const data: KatexBlockState = getEditorState()
     .getCurrentContent()
     .getEntity(block.getEntityAt(0))
