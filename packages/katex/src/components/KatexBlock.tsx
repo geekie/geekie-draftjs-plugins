@@ -38,10 +38,6 @@ const KatexBlock = (props: Props): JSX.Element => {
   const { block, blockProps } = props;
   const { getEditorState, infoComponent, onRemove, onStartEdit, onFinishEdit } =
     blockProps;
-  // eslint-disable-next-line no-console
-  console.log(props, 'props KatexBlock');
-  // eslint-disable-next-line no-console
-  console.log(infoComponent, 'infoComponent KatexBlock');
   const data: KatexBlockState = getEditorState()
     .getCurrentContent()
     .getEntity(block.getEntityAt(0))
