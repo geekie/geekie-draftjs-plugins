@@ -3,6 +3,7 @@ import katex from 'katex';
 import MathInput from 'math-input-web-support/dist/components/app';
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import KatexOutput from './KatexOutput';
+import { getInsertKatexCallback } from '../register';
 import { defaultTheme } from '../theme';
 
 type KatexInternals = typeof katex & {
@@ -74,6 +75,8 @@ const KatexBlock = (props: Props): JSX.Element => {
   };
 
   const save = (): void => {
+    const insertCallback = getInsertKatexCallback();
+    if (data.isNew && insertCallback) insertCallback();
     const entityKey = block.getEntityAt(0);
     const editorState = getEditorState();
     editorState
