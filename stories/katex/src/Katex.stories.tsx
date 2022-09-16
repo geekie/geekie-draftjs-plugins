@@ -10,7 +10,16 @@ export default {
   component: DraftailEditor,
 } as Meta;
 
-const katexPlugin = createKatexPlugin();
+const tip = (
+  <div>
+    <p style={{ margin: 0 }}>
+      <b style={{ color: 'orange' }}>Dica:</b> Esse plugin aceita um componente
+      externo de informações
+    </p>
+  </div>
+);
+
+const katexPlugin = createKatexPlugin({ infoComponent: tip });
 
 registerInsertKatexCallback(() => {
   // eslint-disable-next-line no-console
