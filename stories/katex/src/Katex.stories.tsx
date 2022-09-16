@@ -26,6 +26,11 @@ registerInsertKatexCallback(() => {
   console.log('new katex added');
 });
 
+registerInsertKatexCallback(() => {
+  // eslint-disable-next-line no-console
+  console.log('new katex added');
+});
+
 export const Default: Story = () => (
   <DraftailEditor
     entityTypes={[katexPlugin.entityType]}
