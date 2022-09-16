@@ -1,7 +1,9 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { DraftailEditor } from 'draftail';
-import createKatexPlugin from '../../../packages/katex/src';
+import createKatexPlugin, {
+  registerInsertKatexCallback,
+} from '../../../packages/katex/src';
 
 export default {
   title: 'Katex/Katex plugin',
@@ -18,6 +20,11 @@ const tip = (
 );
 
 const katexPlugin = createKatexPlugin({ infoComponent: tip });
+
+registerInsertKatexCallback(() => {
+  // eslint-disable-next-line no-console
+  console.log('new katex added');
+});
 
 export const Default: Story = () => (
   <DraftailEditor
