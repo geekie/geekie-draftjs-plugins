@@ -5,7 +5,7 @@ let insertKatexCallback: InsertKatexCallback = null;
 export const getInsertKatexCallback: () => InsertKatexCallback = () =>
   insertKatexCallback;
 
-export const registerKatexCallback: (
+export const registerInsertKatexCallback: (
   newCallback: InsertKatexCallback
 ) => void = (newCallback) => {
   if (typeof newCallback !== 'function') {

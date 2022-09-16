@@ -2,7 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { DraftailEditor } from 'draftail';
 import createKatexPlugin, {
-  registerKatexCallback,
+  registerInsertKatexCallback,
 } from '../../../packages/katex/src';
 
 export default {
@@ -12,7 +12,7 @@ export default {
 
 const katexPlugin = createKatexPlugin();
 
-registerKatexCallback(() => {
+registerInsertKatexCallback(() => {
   // eslint-disable-next-line no-console
   console.log('new katex added');
 });

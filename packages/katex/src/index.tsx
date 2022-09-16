@@ -6,7 +6,7 @@ import control from './control';
 import { KATEX_ENTITY } from './entity';
 import removeKatexBlock from './modifiers/removeKatexBlock';
 
-export { registerKatexCallback } from './register';
+export { registerInsertKatexCallback } from './register';
 
 type DraftStateMethods = {
   getEditorState: () => EditorState;
