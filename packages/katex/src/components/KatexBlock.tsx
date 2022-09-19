@@ -149,7 +149,7 @@ const KatexBlock = (props: Props): JSX.Element => {
           disabled={isDisabled}
           onClick={save}
         >
-          {isInvalid ? 'Sintaxe inválida' : 'Salvar'}
+          {isInvalid ? 'Fórmula inválida' : 'Salvar'}
         </button>
         <button style={buttonStyle} onClick={remove}>
           Remover
