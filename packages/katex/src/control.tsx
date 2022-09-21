@@ -4,14 +4,13 @@ import insertKatexBlock from './modifiers/insertKatexBlock';
 
 const buttonTooltipText = 'Equações';
 
-export const ButtonIcon = (props: { onClick: () => void }): JSX.Element => (
+export const ButtonIcon = (): JSX.Element => (
   <svg
     width="14"
     height="14"
     viewBox="0 0 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}
   >
     <path
       d="M12.4444 0H1.55556C0.7 0 0 0.7 0 1.55556V12.4444C0 13.3 0.7 14 1.55556 14H12.4444C13.3 14 14 13.3 14 12.4444V1.55556C14 0.7 13.3 0 12.4444 0ZM12.4444 12.4444H1.55556V1.55556H12.4444V12.4444Z"
@@ -59,9 +58,10 @@ const InsertKatexBlockButton = (props: Props): JSX.Element => {
         className="GeekieKatex-ToolbarButton Draftail-ToolbarButton"
         aria-label={buttonTooltipText}
         data-draftail-balloon={buttonTooltipText}
+        onClick={onClick}
       >
         <span className="Draftail-ToolbarButton__label">
-          <ButtonIcon onClick={onClick} />
+          <ButtonIcon />
         </span>
       </button>
     </span>

@@ -33,3 +33,20 @@ export const Default: Story = () => (
     plugins={[katexPlugin]}
   />
 );
+
+export const TwoInstances: Story = () => (
+  <>
+    <div style={{ marginBottom: 50 }}>
+      <DraftailEditor
+        entityTypes={[katexPlugin.entityType]}
+        controls={[katexPlugin.control]}
+        plugins={[katexPlugin]}
+      />
+    </div>
+    <DraftailEditor
+      entityTypes={[katexPlugin.entityType]}
+      controls={[katexPlugin.control]}
+      plugins={[katexPlugin]}
+    />
+  </>
+);
