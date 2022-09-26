@@ -4,7 +4,11 @@ import { EditorPlugin } from '../../editor/src';
 import ImageComponent, { ImageProps } from './Image';
 import addImage, { IMAGE_ENTITY_TYPE } from './modifiers/addImage';
 import removeImage from './modifiers/removeImage';
-import { getUploadImage, setFileLimitation } from './register';
+import {
+  getUploadImage,
+  setFileLimitation,
+  getImageSizeWarningCallback,
+} from './register';
 import { control, SelectImageControl } from './SelectImageControl';
 import { defaultTheme } from './theme';
 import {
@@ -14,7 +18,11 @@ import {
   isValidImageType,
 } from './utils';
 
-export { registerUploadImageTask, setFileLimitation } from './register';
+export {
+  registerUploadImageTask,
+  registerImageSizeWarningCallback,
+  setFileLimitation,
+} from './register';
 export { htmlToImageEntity, imageEntityToHTML } from './transformHTML';
 
 export interface ImagePluginConfig {
@@ -98,12 +106,12 @@ export default (config: ImagePluginConfig = {}): ImageEditorPlugin => {
       };
     },
     handlePastedFiles: (files: File[], { getEditorState, setEditorState }) => {
-      if (
-        !files.length ||
-        !isValidImageType(files[0]) ||
-        !isValidImageSize(files[0])
-      )
+      if (!files.length || !isValidImageType(files[0])) return 'handled';
+      if (!isValidImageSize(files[0])) {
+        const imageSizeWarningCallback = getImageSizeWarningCallback();
+        if (imageSizeWarningCallback) imageSizeWarningCallback();
         return 'handled';
+      }
       getUploadImage()(files[0]).then(async (dataURL) => {
         const originalSize = await getHeightAndWidthFromDataUrl(dataURL);
         const acceptableSize = getAcceptableSize(originalSize);
