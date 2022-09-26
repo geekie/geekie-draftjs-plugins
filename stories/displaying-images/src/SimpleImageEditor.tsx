@@ -1,15 +1,14 @@
 import React, { ReactElement, useState } from 'react';
 import { DraftailEditor as Editor, INLINE_STYLE } from 'draftail';
-import createImagePlugin, {
-  registerUploadImageTask,
-  imageEntityToHTML,
-  htmlToImageEntity,
-} from '@draft-js-plugins/image';
-import 'draftail/dist/draftail.css';
-
 import { ContentState, convertToRaw, EditorState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
+import createImagePlugin, {
+  registerUploadImageTask,
+  registerImageSizeWarningCallback,
+  imageEntityToHTML,
+  htmlToImageEntity,
+} from '../../../packages/image/src';
 
 function convertToHTML(editorState: EditorState): string {
   return draftToHtml(
@@ -35,6 +34,11 @@ const html = `<p>This is a paragraph!</p>
 
 // Register how to upload the selected image
 registerUploadImageTask(() => Promise.resolve('https://picsum.photos/500/200'));
+
+registerImageSizeWarningCallback(() => {
+  // eslint-disable-next-line no-console
+  console.log('image too big');
+});
 
 const SimpleImageEditor = (): ReactElement => {
   const contentState = ContentState.createFromBlockArray(

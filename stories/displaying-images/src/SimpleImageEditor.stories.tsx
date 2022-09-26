@@ -4,7 +4,7 @@ import { Story, Meta } from '@storybook/react';
 import SimpleImageEditor from './SimpleImageEditor';
 
 export default {
-  title: 'Image/Editor with Image Plugin',
+  title: 'Image/Image plugin',
   component: SimpleImageEditor,
 } as Meta;
 

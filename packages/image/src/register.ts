@@ -1,9 +1,26 @@
+export const pluginConfig = {
+  fileLimitation: 5, // file size limitation in unit MB
+};
+
+export const setFileLimitation = (limitation: number): void => {
+  pluginConfig.fileLimitation = limitation;
+};
+
+type ImageSizeWarningCallback = (() => void) | null;
+let imageSizeWarning: ImageSizeWarningCallback = null;
+export const registerImageSizeWarningCallback = (
+  callback: ImageSizeWarningCallback
+): void => {
+  imageSizeWarning = callback;
+};
+export const getImageSizeWarningCallback: () => ImageSizeWarningCallback = () =>
+  imageSizeWarning;
+
+type UploadImageTask = (file: File) => Promise<string>;
 const defaultUploadImage: UploadImageTask = () =>
   Promise.reject(
     new Error('should register the uploadImageTask before uploading image')
   );
-
-type UploadImageTask = (file: File) => Promise<string>;
 
 let uploadImage: UploadImageTask = defaultUploadImage;
 export const getUploadImage: () => UploadImageTask = () => uploadImage;
@@ -16,13 +33,4 @@ export const registerUploadImageTask: (
   } else {
     uploadImage = newUploadImage;
   }
-};
-
-export const pluginConfig = {
-  // file size limitation in unit MB
-  fileLimitation: 3,
-};
-
-export const setFileLimitation = (limitation: number): void => {
-  pluginConfig.fileLimitation = limitation;
 };
