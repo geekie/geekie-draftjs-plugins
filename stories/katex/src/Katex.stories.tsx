@@ -3,6 +3,7 @@ import { Story, Meta } from '@storybook/react';
 import { DraftailEditor } from 'draftail';
 import createKatexPlugin, {
   registerInsertKatexCallback,
+  registerMathInputWidthCallback,
 } from '../../../packages/katex/src';
 
 export default {
@@ -24,6 +25,11 @@ const katexPlugin = createKatexPlugin({ infoComponent: tip });
 registerInsertKatexCallback(() => {
   // eslint-disable-next-line no-console
   console.log('new katex added');
+});
+
+registerMathInputWidthCallback((width) => {
+  // eslint-disable-next-line no-console
+  console.log('math input width:', width);
 });
 
 export const Default: Story = () => (
