@@ -1,16 +1,12 @@
 import { ContentBlock, EditorState } from 'draft-js';
 import 'katex/dist/katex.min.css';
 import 'mathquill-commonjs/mathquill.css';
-import { ReactElement } from 'react';
-import KatexBlock, { KateBlockProps } from './components/KatexBlock';
+import KatexBlock, { KateBlockProps, Rule } from './components/KatexBlock';
 import control from './control';
 import { KATEX_ENTITY } from './entity';
 import removeKatexBlock from './modifiers/removeKatexBlock';
 
-export {
-  registerInsertKatexCallback,
-  registerMathInputWidthCallback,
-} from './register';
+export { registerInsertKatexCallback } from './register';
 
 type DraftStateMethods = {
   getEditorState: () => EditorState;
@@ -34,12 +30,12 @@ type KatexPlugin = {
 };
 
 type KatexPluginProps = {
-  infoComponent?: ReactElement;
+  rules?: Rule[];
 };
 
 export default (props?: KatexPluginProps): KatexPlugin => {
   const blocksInEditingMode = new Map();
-  const infoComponent = props?.infoComponent;
+  const rules = props?.rules;
 
   return {
     blockRendererFn: (
@@ -58,7 +54,7 @@ export default (props?: KatexPluginProps): KatexPlugin => {
         editable: false,
         props: {
           getEditorState,
-          infoComponent,
+          rules,
 
           onStartEdit: (blockKey: string) => {
             setReadOnly(true);
