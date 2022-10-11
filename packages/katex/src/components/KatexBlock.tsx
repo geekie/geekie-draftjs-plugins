@@ -9,7 +9,7 @@ import React, {
   useState,
 } from 'react';
 import KatexOutput from './KatexOutput';
-import { getInsertKatexCallback } from '../register';
+import { getInsertKatexCallback, getMathInputWidthCallback } from '../register';
 import { defaultTheme } from '../theme';
 
 type KatexInternals = typeof katex & {
@@ -50,6 +50,7 @@ const KatexBlock = (props: Props): JSX.Element => {
   const [isInvalidTex, setIsInvalidTex] = useState(data.isInvalidTex);
   const [value, setValue] = useState(data.value);
   const mathInput = useRef<{ focus: () => void }>(null);
+  const inputSize = useRef<HTMLDivElement>(null);
 
   const callbacks: { [key: string]: () => void } = {};
 
@@ -126,6 +127,14 @@ const KatexBlock = (props: Props): JSX.Element => {
     mathInput.current.focus();
   }, [isEditing]);
 
+  useEffect(() => {
+    if (!inputSize.current) return;
+    const mathInputWidthCallback = getMathInputWidthCallback();
+    if (!mathInputWidthCallback) return;
+    const widthWithoutMargins = inputSize.current.clientWidth - 40;
+    mathInputWidthCallback(widthWithoutMargins);
+  }, [value]);
+
   const isDisabled = isInvalidTex || value.trim() === '';
   const isInvalid = isInvalidTex && !(value.trim() === '');
 
@@ -158,15 +167,21 @@ const KatexBlock = (props: Props): JSX.Element => {
     </div>
   );
 
+  const inputSizeStyle: React.CSSProperties = {
+    display: 'inline-block',
+  };
+
   const display = isEditing ? (
-    <MathInput
-      classname={`${defaultTheme.styleGlobal}`}
-      callbacks={callbacks}
-      katex={katex}
-      onChange={onValueChange}
-      value={value}
-      ref={mathInput}
-    />
+    <div ref={inputSize} style={inputSizeStyle}>
+      <MathInput
+        classname={`${defaultTheme.styleGlobal}`}
+        callbacks={callbacks}
+        katex={katex}
+        onChange={onValueChange}
+        value={value}
+        ref={mathInput}
+      />
+    </div>
   ) : (
     <KatexOutput onClick={startEdit} value={value} />
   );
