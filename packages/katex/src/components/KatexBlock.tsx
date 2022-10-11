@@ -19,6 +19,7 @@ export type Rule = {
   minWidth: number;
   borderColor?: Color;
   tipText?: string;
+  tipHtml?: JSX.Element;
   tipColor?: Color;
   disableButton?: true;
 };
@@ -59,6 +60,7 @@ const KatexBlock = (props: Props): JSX.Element => {
   const [borderColor, setBorderColor] = useState<Color | undefined>();
   const [tipColor, setTipColor] = useState<Color | undefined>();
   const [tipText, setTipText] = useState<string | undefined>();
+  const [tipHtml, setTipHtml] = useState<JSX.Element | undefined>();
   const [disableButton, setDisableButton] = useState<true | undefined>();
   const mathInput = useRef<{ focus: () => void }>(null);
   const inputSize = useRef<HTMLDivElement>(null);
@@ -153,6 +155,7 @@ const KatexBlock = (props: Props): JSX.Element => {
     setBorderColor(() =>
       triggeredRule ? triggeredRule.borderColor : undefined
     );
+    setTipHtml(() => (triggeredRule ? triggeredRule.tipHtml : undefined));
     setTipText(() => (triggeredRule ? triggeredRule.tipText : undefined));
     setTipColor(() => (triggeredRule ? triggeredRule.tipColor : undefined));
     setDisableButton(() =>
@@ -164,7 +167,9 @@ const KatexBlock = (props: Props): JSX.Element => {
   const isInvalid = isInvalidTex && !(value.trim() === '');
 
   const tipStyle = tipColor ? { color: tipColor } : {};
-  const tip = tipText && <p style={tipStyle}>{tipText}</p>;
+  let tip = tipText && <p style={tipStyle}>{tipText}</p>;
+
+  if (tipHtml) tip = tipHtml;
 
   const editingForm = (
     <div className="GeekieKatex-EditPanel">
