@@ -12,9 +12,19 @@ export default {
 
 const katexPlugin = createKatexPlugin({
   rules: [
-    { minWidth: 100, tipText: 'Dica: green', tipColor: 'green' },
-    { minWidth: 150, tipText: 'Dica: blue', tipColor: 'blue' },
-    { minWidth: 200, disableButton: true },
+    {
+      minWidth: 100,
+      tipText: 'Dica: green',
+      tipColor: 'green',
+      borderColor: 'green',
+    },
+    {
+      minWidth: 150,
+      tipText: 'Dica: blue',
+      tipColor: 'blue',
+      borderColor: 'blue',
+    },
+    { minWidth: 200, disableButton: true, borderColor: 'red' },
   ],
 });
 

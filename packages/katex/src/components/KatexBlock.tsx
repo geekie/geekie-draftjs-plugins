@@ -17,6 +17,7 @@ type Color = RGB | RGBA | HEX | string;
 
 export type Rule = {
   minWidth: number;
+  borderColor?: Color;
   tipText?: string;
   tipColor?: Color;
   disableButton?: true;
@@ -55,6 +56,7 @@ const KatexBlock = (props: Props): JSX.Element => {
   const [isEditing, setIsEditing] = useState(data.isEditing);
   const [isInvalidTex, setIsInvalidTex] = useState(data.isInvalidTex);
   const [value, setValue] = useState(data.value);
+  const [borderColor, setBorderColor] = useState<Color | undefined>();
   const [tipColor, setTipColor] = useState<Color | undefined>();
   const [tipText, setTipText] = useState<string | undefined>();
   const [disableButton, setDisableButton] = useState<true | undefined>();
@@ -148,6 +150,9 @@ const KatexBlock = (props: Props): JSX.Element => {
     const triggeredRule = rulesSorted.filter(
       (r) => widthWithoutMargins > r.minWidth
     )[0];
+    setBorderColor(() =>
+      triggeredRule ? triggeredRule.borderColor : undefined
+    );
     setTipText(() => (triggeredRule ? triggeredRule.tipText : undefined));
     setTipColor(() => (triggeredRule ? triggeredRule.tipColor : undefined));
     setDisableButton(() =>
@@ -197,6 +202,7 @@ const KatexBlock = (props: Props): JSX.Element => {
   const display = isEditing ? (
     <div ref={inputSize} style={inputSizeStyle}>
       <MathInput
+        borderColor={borderColor}
         classname={`${defaultTheme.styleGlobal}`}
         callbacks={callbacks}
         katex={katex}
