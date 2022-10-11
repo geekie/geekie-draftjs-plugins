@@ -3,7 +3,6 @@ import { Story, Meta } from '@storybook/react';
 import { DraftailEditor } from 'draftail';
 import createKatexPlugin, {
   registerInsertKatexCallback,
-  registerMathInputWidthCallback,
 } from '../../../packages/katex/src';
 
 export default {
@@ -11,25 +10,17 @@ export default {
   component: DraftailEditor,
 } as Meta;
 
-const tip = (
-  <div>
-    <p style={{ margin: 0 }}>
-      <b style={{ color: 'orange' }}>Dica:</b> Esse plugin aceita um componente
-      externo de informações
-    </p>
-  </div>
-);
-
-const katexPlugin = createKatexPlugin({ infoComponent: tip });
+const katexPlugin = createKatexPlugin({
+  rules: [
+    { minWidth: 100, tipText: 'Dica: green', tipColor: 'green' },
+    { minWidth: 150, tipText: 'Dica: blue', tipColor: 'blue' },
+    { minWidth: 200, disableButton: true },
+  ],
+});
 
 registerInsertKatexCallback(() => {
   // eslint-disable-next-line no-console
   console.log('new katex added');
-});
-
-registerMathInputWidthCallback((width) => {
-  // eslint-disable-next-line no-console
-  console.log('math input width:', width);
 });
 
 export const Default: Story = () => (

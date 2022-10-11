@@ -1,27 +1,33 @@
 import { ContentBlock, EditorState } from 'draft-js';
 import katex from 'katex';
 import MathInput from 'math-input-web-support/dist/components/app';
-import React, {
-  ChangeEvent,
-  ReactElement,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import KatexOutput from './KatexOutput';
-import { getInsertKatexCallback, getMathInputWidthCallback } from '../register';
+import { getInsertKatexCallback } from '../register';
 import { defaultTheme } from '../theme';
 
 type KatexInternals = typeof katex & {
   __parse: (s: string) => void;
 };
 
+type RGB = `rgb(${number}, ${number}, ${number})`;
+type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
+type HEX = `#${string}`;
+type Color = RGB | RGBA | HEX | string;
+
+export type Rule = {
+  minWidth: number;
+  tipText?: string;
+  tipColor?: Color;
+  disableButton?: true;
+};
+
 export type KateBlockProps = {
   getEditorState: () => EditorState;
-  infoComponent?: ReactElement;
   onRemove: (key: string) => void;
   onStartEdit: (key: string) => void;
   onFinishEdit: (key: string, newEditorState: EditorState) => void;
+  rules?: Rule[];
 };
 
 export type KatexBlockState = {
@@ -38,7 +44,7 @@ type Props = {
 
 const KatexBlock = (props: Props): JSX.Element => {
   const { block, blockProps } = props;
-  const { getEditorState, infoComponent, onRemove, onStartEdit, onFinishEdit } =
+  const { getEditorState, rules, onRemove, onStartEdit, onFinishEdit } =
     blockProps;
 
   const data: KatexBlockState = getEditorState()
@@ -49,10 +55,19 @@ const KatexBlock = (props: Props): JSX.Element => {
   const [isEditing, setIsEditing] = useState(data.isEditing);
   const [isInvalidTex, setIsInvalidTex] = useState(data.isInvalidTex);
   const [value, setValue] = useState(data.value);
+  const [tipColor, setTipColor] = useState<Color | undefined>();
+  const [tipText, setTipText] = useState<string | undefined>();
+  const [disableButton, setDisableButton] = useState<true | undefined>();
   const mathInput = useRef<{ focus: () => void }>(null);
   const inputSize = useRef<HTMLDivElement>(null);
 
   const callbacks: { [key: string]: () => void } = {};
+
+  let rulesSorted: Rule[] | undefined;
+  if (rules && rules.length) {
+    rulesSorted = [...rules];
+    rulesSorted.sort((r1, r2) => r2.minWidth - r1.minWidth);
+  }
 
   const onValueChange = (
     evt: ChangeEvent<HTMLTextAreaElement> | string
@@ -128,15 +143,23 @@ const KatexBlock = (props: Props): JSX.Element => {
   }, [isEditing]);
 
   useEffect(() => {
-    if (!inputSize.current) return;
-    const mathInputWidthCallback = getMathInputWidthCallback();
-    if (!mathInputWidthCallback) return;
+    if (!inputSize.current || !rulesSorted) return;
     const widthWithoutMargins = inputSize.current.clientWidth - 40;
-    mathInputWidthCallback(widthWithoutMargins);
+    const triggeredRule = rulesSorted.filter(
+      (r) => widthWithoutMargins > r.minWidth
+    )[0];
+    setTipText(() => (triggeredRule ? triggeredRule.tipText : undefined));
+    setTipColor(() => (triggeredRule ? triggeredRule.tipColor : undefined));
+    setDisableButton(() =>
+      triggeredRule ? triggeredRule.disableButton : undefined
+    );
   }, [value]);
 
-  const isDisabled = isInvalidTex || value.trim() === '';
+  const isDisabled = isInvalidTex || disableButton || value.trim() === '';
   const isInvalid = isInvalidTex && !(value.trim() === '');
+
+  const tipStyle = tipColor ? { color: tipColor } : {};
+  const tip = tipText && <p style={tipStyle}>{tipText}</p>;
 
   const editingForm = (
     <div className="GeekieKatex-EditPanel">
@@ -144,7 +167,7 @@ const KatexBlock = (props: Props): JSX.Element => {
         className="GeekieKatex-InfoComponent-Container"
         style={infoComponentStyle}
       >
-        {infoComponent}
+        {tip}
       </div>
       <div className="GeekieKatex-EditPanel-Buttons">
         <button
