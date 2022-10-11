@@ -148,15 +148,11 @@ const KatexBlock = (props: Props): JSX.Element => {
     const triggeredRule = rulesSorted.filter(
       (r) => widthWithoutMargins > r.minWidth
     )[0];
-    if (triggeredRule) {
-      setTipText(() => triggeredRule.tipText);
-      setTipColor(() => triggeredRule.tipColor);
-      setDisableButton(() => triggeredRule.disableButton);
-    } else {
-      setTipText(() => undefined);
-      setTipColor(() => undefined);
-      setDisableButton(() => undefined);
-    }
+    setTipText(() => (triggeredRule ? triggeredRule.tipText : undefined));
+    setTipColor(() => (triggeredRule ? triggeredRule.tipColor : undefined));
+    setDisableButton(() =>
+      triggeredRule ? triggeredRule.disableButton : undefined
+    );
   }, [value]);
 
   const isDisabled = isInvalidTex || disableButton || value.trim() === '';
