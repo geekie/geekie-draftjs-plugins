@@ -14,7 +14,15 @@ const katexPlugin = createKatexPlugin({
   rules: [
     {
       minWidth: 100,
-      tipText: 'Dica: green',
+      tipHtml: (
+        <div>
+          <p style={{ margin: 0 }}>
+            <b style={{ color: 'orange' }}>Dica:</b> Esse plugin aceita um
+            componente externo de informações
+          </p>
+        </div>
+      ),
+      tipText: 'este texto será ignorado',
       tipColor: 'green',
       borderColor: 'green',
     },
