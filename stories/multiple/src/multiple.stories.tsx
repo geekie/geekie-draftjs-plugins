@@ -1,20 +1,13 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-import createImagePlugin, {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  registerUploadImageTask,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  htmlToImageEntity,
-} from '@geekie/geekie-image';
+import { Meta, Story } from '@storybook/react';
 import { DraftailEditor, INLINE_STYLE } from 'draftail';
+import React from 'react';
+
+import createImagePlugin from '../../../packages/image/src';
 import createKatexPlugin, {
   registerInsertKatexCallback,
 } from '../../../packages/katex/src';
-import createSymbolPlugin, {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  registerInsertSymbolCallback,
-} from '../../../packages/symbol/src';
 import createLinkifyPlugin from '../../../packages/linkify/src';
+import createSymbolPlugin from '../../../packages/symbol/src';
 
 export default {
   title: 'Multiple Editors',
